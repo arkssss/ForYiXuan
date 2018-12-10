@@ -211,13 +211,13 @@ var addPrompt = function addPrompt(i) {
     }
   }, 300);
 };
-var message = [["10.25这天", "我们相遇了","23333"],
-              ["那时我才意识到"],
-              ["生活原来也可以"],
-              ["这么","美","好"],
-              ["有你的日子, 感觉世界都变了"],
-              ["123123123"],
-              ["test", "test2"]]
+var message = [
+
+              ["5"],["4"],["3"],["2"],["1"],
+              ["10.25这天", "我们相遇了"],
+              [""],
+            
+            ]
 var len = message.length;
 var is_sub_array = false;
 // 开始显示的函数
@@ -235,7 +235,7 @@ var star_showing = function star_showing(i){
           star_showing(i+1);
         }
       }
-    },1500)
+    },800)
 
 }
 var show_sub_array = function show_sub_array(i, arr, j){
