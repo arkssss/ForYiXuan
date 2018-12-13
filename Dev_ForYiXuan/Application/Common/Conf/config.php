@@ -10,6 +10,6 @@ return array(
 		'__JS__'     => '/Public/JS/', // 增加新的JS类库路径替换规则
 		'__CSS__' 	 => '/Public/CSS',
 		'__UPLOAD__' => '/Uploads', // 增加新的上传路径替换规则
-		'__PHOTO__'  =>  __ROOT__.'/Public/PHOTO'
+		'__PHOTO__'  =>  __ROOT__.'/Public/photo'
    )
 );
