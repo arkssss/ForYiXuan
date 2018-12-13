@@ -20,7 +20,7 @@
         <!-- 导航css -->
     <link rel="stylesheet" type="text/css" href="/ForYiXuan/Dev_Foryixuan/Public/CSS/photo_wall/nav.css" /> 
     <!-- 导航js -->
-    <script type="text/javascript" src="/ForYiXuan/Dev_Foryixuan/Public/js/photo_wall/nav2.js"></script>
+    <script type="text/javascript" src="/ForYiXuan/Dev_Foryixuan/Public/JS/photo_wall/nav2.js"></script>
     <!-- 导航 -->
 	<div id="menu">
         <div class="hamburger">

@@ -13,7 +13,7 @@
 <p id="offscreen-text" class="offscreen-text"></p>
 <p id="text" class="text"></p>
 <svg id="svg"> </svg>
-<input type="text" class="input", id="input" />
+<input style="display : none;" type="text" class="input", id="input" />
 
 
 <!-- 排列效果 js  -->
