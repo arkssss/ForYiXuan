@@ -1,0 +1,19 @@
+body {background: #1b2225;}
+.fl{ float: left; }
+.fr{ float: right; }
+.wrapper{ width: 1000px; height: 600px; margin: 0 auto; margin-bottom: 200px} 
+.wrapper p{ padding-top: 100px; 
+            line-height: 27px;
+            line-break: 20px;
+            font-size: 24px;
+            padding-bottom: 100px;
+            text-align: center; 
+            font-family: Microsoft YaHei;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing:8px;
+        }
+.tagcloud { position: relative; margin-top:-150px; margin: 0 auto;}
+.tagcloud a{ position: absolute;  top: 0; left: 0;  display: block; padding: 11px 30px; color: #333; font-size: 16px; border: 1px solid rgb(255, 119, 0); border-radius: 18px; background-color: rgb(255, 119, 0); text-decoration: none; white-space: nowrap;
+}
+.tagcloud a:hover{ color: #f7f0f0; }
