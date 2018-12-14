@@ -1,2 +1,4 @@
-*.log
-/Runtime
+.log
+Runtime/
+Runtime/**
+.DS_Store
