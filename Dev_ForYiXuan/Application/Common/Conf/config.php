@@ -11,6 +11,7 @@ return array(
 		'__CSS__' 	 => '/Public/CSS',
 		'__UPLOAD__' => '/Uploads', // 增加新的上传路径替换规则
 		'__PHOTO__'  =>  __ROOT__.'/Public/photo',
-		'__PDF__'    =>  __ROOT__.'/Public/PDF'
+		'__PDF__'    =>  __ROOT__.'/Public/PDF',
+		'__CARD__'   =>  __ROOT__.'/Public/photo/Card'
    )
 );

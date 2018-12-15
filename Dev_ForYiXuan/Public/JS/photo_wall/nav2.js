@@ -14,9 +14,9 @@ $(window).load(function(){
 	hamburger = $('.hamburger');
 
 	$(this).on('mousemove', function(e){
-		x = e.pageX;
+		x = e.screenX;
 		
-		y = e.pageY;
+		y = e.screenY;
 	});
 
 	$('.hamburger, .menu-inner').on('mouseenter', function(){
@@ -86,7 +86,7 @@ $(window).load(function(){
 	var now_enter_time ;
 	var last_class;
 
-	$(".div_frame").mouseover(function(){
+	$(".div_frame").click(function(){
 		//获取当前事件
 		var Time = new Date();
 		now_enter_time = Time.getTime();
