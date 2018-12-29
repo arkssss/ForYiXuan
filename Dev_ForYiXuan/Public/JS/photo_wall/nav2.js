@@ -82,31 +82,6 @@ $(window).load(function(){
 	window.requestAnimationFrame(svgCurve);
 
 
-	var last_enter_time ;
-	var now_enter_time ;
-	var last_class;
-
-	$(".div_frame").click(function(){
-		//获取当前事件
-		var Time = new Date();
-		now_enter_time = Time.getTime();
-		var my_class = $(this).attr("Class");
-		var spc_class = my_class.split(' ')[1];
-		var spc_sub = ".sub_"+spc_class;
-		if(!last_class || last_class!=spc_class || !last_enter_time || now_enter_time - last_enter_time > 500 ){
-			$(spc_sub).slideDown();
-		}
-		last_enter_time = now_enter_time;
-		last_class = spc_class;
-
-	})
-
-	$(".div_frame").mouseleave(function(){
-		var my_class = $(this).attr("Class");
-		var spc_class = my_class.split(' ')[1];
-		var spc_sub = ".sub_"+spc_class;
-		$(spc_sub).slideUp();
-	})	
 	
 	
 });

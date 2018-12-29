@@ -1,157 +1,170 @@
 <include file="Base/head"/>
-	<import type='css' file="CSS/Card/default"/> 
-	<import type='css' file="CSS/Card/styles"/> 
-	<import type='js'  file = "JS/Card/Card"/>
+<import type='css' file="CSS/Card/default"/> 
+<import type='css' file="CSS/Card/styles"/> 
+<import type='js'  file = "JS/Card/Card"/>	
 </head>
+	<!-- 包含侧栏的导航条 -->
 <body>
+
+	<include file="Base/NavBar" />
+
 	<div class="jq22-container">
 		<header class="jq22-header">
-			<h1>jQuery和CSS3炫酷堆叠卡片展开和收缩特效</h1>
+			<h1>任狗和方猪的卡片</h1>
+			<br>
+			<!-- <h2 class="text-info">卡片有限制, 希望双方谨慎使用!!!</h2> -->
 		</header>
 		<div class="jq22-content">
-			<ul class="cards">
-			  <li class="title">
-			    <h2>Slide right</h2>
-			  </li>
-			  <li class="card card-1"><img src="__CARD__/01.jpg"/>
-			    <div class="content">
-			      <h1>Card 1 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-2"><img src="__CARD__/02.jpg"/>
-			    <div class="content">
-			      <h1>Card 2 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-3"><img src="__CARD__/03.jpg"/>
-			    <div class="content">
-			      <h1>Card 3 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			</ul>
-			<hr/>
+
 			<ul class="card-stacks">
 			  <li class="title">
-			    <h2>Expand to grid</h2>
+			    <h1>小任狗当月剩余: </h1>
 			  </li>
 			  <li class="stack stack-1">
 			    <ul class="cards-down">
-			      <li class="card card-1"><img src="__CARD__/04.jpg"/>
-			        <div class="content">
-			          <h1>Card 1 Title</h1>
-			          <p>Stack 1</p>
-			        </div>
+							<li class="card card-1"><img class="card_img" src="__CARD__/kiss.png"/>
+								<div class="content">
+									<h2>亲亲卡 : 
+									剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+									<p>当⼀⽅使⽤此卡时，另⼀⽅必须给此⼈⼀个亲亲，⽆论情况与条件，⽴
+										刻强制执⾏
+									</p>
+								</div>
+							</li>
+			      <li class="card card-2"><img src="__CARD__/eat.png"/>
+							<div class="content">
+									<h2>陪吃陪喝卡 : 剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+									<p>使⽤此卡，另⼀⽅必须⽆条件答应对⽅的陪吃要求，⽆论⻝物与地
+										点</p>
+								</div>
 			      </li>
-			      <li class="card card-2"><img src="__CARD__/05.jpg"/>
-			        <div class="content">
-			          <h1>Card 2 Title</h1>
-			          <p>Stack 1</p>
-			        </div>
-			      </li>
-			      <li class="card card-3"><img src="__CARD__/06.jpg"/>
-			        <div class="content">
-			          <h1>Card 3 Title</h1>
-			          <p>Stack 1</p>
-			        </div>
+			      <li class="card card-3"><img class="card_img" src="__CARD__/love_language.png"/>
+							<div class="content">
+									<h2>情话卡 :剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+									<p>当⼀⽅使⽤此卡时，另⼀⽅必须深情注视对⽅，说出情话，两分钟之内
+											必须说出</p>
+								</div>
 			      </li>
 			    </ul>
 			  </li>
 			  <li class="stack stack-2">
 			    <ul class="cards-down">
-			      <li class="card card-1"><img src="__CARD__/07.jpg"/>
-			        <div class="content">
-			          <h1>Card 1 Title</h1>
-			          <p>Stack 2</p>
-			        </div>
+			      <li class="card card-1"><img src="__CARD__/clam.png"/>
+							<div class="content">
+								<h2>冷静卡 :剩余 <strong><span class="text-danger">2</span></strong> times</h2>
+								<p>此卡仅限有⼀⽅⽣⽓时，对⽅⽤于冷静调节对⽅情绪使⽤，使⽤此卡，
+										⽣⽓⼀⽅需冷静下来，倾听对⽅论述。</p>
+							</div>
 			      </li>
-			      <li class="card card-2"><img src="__CARD__/08.jpg"/>
-			        <div class="content">
-			          <h1>Card 2 Title</h1>
-			          <p>Stack 2</p>
-			        </div>
+			      <li class="card card-2"><img src="__CARD__/chicu.png"/>
+							<div class="content">
+									<h2>醋味消除卡 :剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+									<p>使⽤此卡，吃醋⼀⽅不得⽣⽓，认真听对⽅解释。</p>
+								</div>
 			      </li>
-			      <li class="card card-3"><img src="__CARD__/01.jpg"/>
-			        <div class="content">
-			          <h1>Card 3 Title</h1>
-			          <p>Stack 2</p>
-			        </div>
+			      <li class="card card-3"><img class = 'card_img' src="__CARD__/wish.png"/>
+							<div class="content">
+									<h2>愿望满⾜卡 :剩余 <strong><span class="text-danger">1</span></strong> times</h2>
+									<p>使⽤此卡，⼀⽅需⽆条件答应对⽅愿望⼀个（在法律和道德允许的
+											范围之内）</p>
+								</div>
 			      </li>
 			    </ul>
 			  </li>
 			  <li class="stack stack-3">
 			    <ul class="cards-down">
-			      <li class="card card-1"><img src="__CARD__/06.jpg"/>
-			        <div class="content">
-			          <h1>Card 1 Title</h1>
-			          <p>Stack 3</p>
-			        </div>
+			      <li class="card card-2"><img src="__CARD__/hug.png"/>
+							<div class="content">
+									<h2>安慰哄哄卡 :剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+									<p>使⽤此卡，对⽅必须哄使⽤者⼀次，直到哄开⼼了为⽌。</p>
+								</div>
 			      </li>
-			      <li class="card card-2"><img src="__CARD__/02.jpg"/>
-			        <div class="content">
-			          <h1>Card 2 Title</h1>
-			          <p>Stack 3</p>
-			        </div>
-			      </li>
-			      <li class="card card-3"><img src="__CARD__/03.jpg"/>
-			        <div class="content">
-			          <h1>Card 3 Title</h1>
-			          <p>Stack 3</p>
-			        </div>
-			      </li>
+			      <li class="card card-3"><img src="__CARD__/truth.png"/>
+							<div class="content">
+									<h2>实话卡 :剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+									<p> 使⽤此卡, 对⽅必须说出关于对⽅所询问的事情的实话, ⽐如为啥⽣⽓等等</p>
+								</div>
+						</li>
 			    </ul>
 			  </li>
 			</ul>
+
 			<hr/>
-			<ul class="cards-split">
-			  <li class="title">
-			    <h2>Split from middle</h2>
-			  </li>
-			  <li class="card card-1"><img src="__CARD__/02.jpg"/>
-			    <div class="content">
-			      <h1>Card 1 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-2"><img src="__CARD__/04.jpg"/>
-			    <div class="content">
-			      <h1>Card 2 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-3"><img src="__CARD__/06.jpg"/>
-			    <div class="content">
-			      <h1>Card 3 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
+
+			<ul class="card-stacks">
+					<li class="title">
+						<h1>死方猪当月剩余: </h1>
+					</li>
+					<li class="stack stack-1">
+						<ul class="cards-down">
+								<li class="card card-1"><img src="__CARD__/kiss.png"/>
+									<div class="content">
+										<h2>亲亲卡 : 
+										剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+										<p>当⼀⽅使⽤此卡时，另⼀⽅必须给此⼈⼀个亲亲，⽆论情况与条件，⽴
+											刻强制执⾏
+										</p>
+									</div>
+								</li>
+							<li class="card card-2"><img src="__CARD__/eat.png"/>
+								<div class="content">
+										<h2>陪吃陪喝卡 : 剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+										<p>使⽤此卡，另⼀⽅必须⽆条件答应对⽅的陪吃要求，⽆论⻝物与地
+											点</p>
+									</div>
+							</li>
+							<li class="card card-3"><img src="__CARD__/love_language.png"/>
+								<div class="content">
+										<h2>情话卡 :剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+										<p>当⼀⽅使⽤此卡时，另⼀⽅必须深情注视对⽅，说出情话，两分钟之内
+												必须说出</p>
+									</div>
+							</li>
+						</ul>
+					</li>
+					<li class="stack stack-2">
+						<ul class="cards-down">
+							<li class="card card-1"><img src="__CARD__/clam.png"/>
+								<div class="content">
+									<h2>冷静卡 :剩余 <strong><span class="text-danger">2</span></strong> times</h2>
+									<p>此卡仅限有⼀⽅⽣⽓时，对⽅⽤于冷静调节对⽅情绪使⽤，使⽤此卡，
+											⽣⽓⼀⽅需冷静下来，倾听对⽅论述。</p>
+								</div>
+							</li>
+							<li class="card card-2"><img src="__CARD__/chicu.png"/>
+								<div class="content">
+										<h2>醋味消除卡 :剩余 <strong><span class="text-danger">5</span></strong> times</h2>
+										<p>使⽤此卡，吃醋⼀⽅不得⽣⽓，认真听对⽅解释。</p>
+									</div>
+							</li>
+							<li class="card card-3"><img src="__CARD__/wish.png"/>
+								<div class="content">
+										<h2>愿望满⾜卡 :剩余 <strong><span class="text-danger">1</span></strong> times</h2>
+										<p>使⽤此卡，⼀⽅需⽆条件答应对⽅愿望⼀个（在法律和道德允许的
+												范围之内）</p>
+									</div>
+							</li>
+						</ul>
+					</li>
+					<li class="stack stack-3">
+						<ul class="cards-down">
+							<li class="card card-2"><img src="__CARD__/hug.png"/>
+								<div class="content">
+										<h2>安慰哄哄卡 :剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+										<p>使⽤此卡，对⽅必须哄使⽤者⼀次，直到哄开⼼了为⽌。</p>
+									</div>
+							</li>
+							<li class="card card-3"><img src="__CARD__/truth.png"/>
+								<div class="content">
+										<h2>实话卡 :剩余 <strong><span class="text-danger">3</span></strong> times</h2>
+										<p> 使⽤此卡, 对⽅必须说出关于对⽅所询问的事情的实话, ⽐如为啥⽣⽓等等</p>
+									</div>
+							</li>
+						</ul>
+					</li>
 			</ul>
-			<hr/>
-			<ul class="cards-split-delay">
-			  <li class="title">
-			    <h2>Delayed split from middle</h2>
-			  </li>
-			  <li class="card card-1"><img src="__CARD__/01.jpg"/>
-			    <div class="content">
-			      <h1>Card 1 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-2"><img src="__CARD__/05.jpg"/>
-			    <div class="content">
-			      <h1>Card 2 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			  <li class="card card-3"><img src="__CARD__/08.jpg"/>
-			    <div class="content">
-			      <h1>Card 3 Title</h1>
-			      <p>Card description</p>
-			    </div>
-			  </li>
-			</ul>
+
+
 		</div>
 	</div>
 	
