@@ -2,14 +2,16 @@
     <!-- 标签云 js -->
   <import type='js'  file = "JS/TagCloud/tagcloud"/>
   <import type='css' file='CSS/TagCloud/demo' />
-
 </head>
 <body>
     <include file="Base/NavBar" />
 <div class="wrapper">
-    <p class="rl">和艺璇去过的地方<br/>希望以后越来越多</p>
+    <p class="rl">{$places.DonePlaces.title}<br/>{$places.DonePlaces.des}</p>
     <div class="tagcloud">
-      <a href="#">江汉路</a>
+      <volist name='places.DonePlaces.place' id='vo'>
+        <a href='{$vo.url}'>{$vo.name}</a>
+      </volist>>
+      <!-- <a href="#">江汉路</a>
       <a href="#">汉街</a>
       <a href="#">兰陵路</a>
       <a href="#">江滩</a>
@@ -24,10 +26,9 @@
       <a href="#">k11</a>
       <a href="#">保利广场</a>
       <a href="#">上海外滩</a>
-      <a href="#">上海百度研发中心</a>
       <a href="#">长沙五一广场</a>
       <a href="#">长沙IFS</a>
-      <a href="#">永旺梦乐城（经开店)</a>
+      <a href="#">永旺梦乐城（经开店)</a> -->
     </div>
 </div><!--wrapper-->
 <div class="wrapper"> 

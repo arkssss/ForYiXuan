@@ -1,0 +1,67 @@
+<include file="Base/head"/>
+    <import type='css'  file = "CSS/TagCloud/jquery_tagsinput-revisited"/>
+    <import type='js'  file = "JS/TagCloud/jquery_tagsinput-revisited"/>
+	<style type="text/css">
+		.jq22-content {
+			width: 800px;
+			margin: 20px auto;
+		}
+		label {
+			display: block;
+			padding: 20px 0 5px 0;
+		}
+    </style>
+	</head>
+	<body>
+<div class="jq22-content">
+		<form id="form">        
+        <volist name="fixplace" id="places">
+                <label>{$places.title} (Enter 保存)</label>
+                <input id="form-tags-1" name="tags-1" type="text" value= "{$places.place}">        
+        </volist>   
+
+
+
+	</form>
+	</div>
+
+<script type="text/javascript">
+		$(function() {
+            // var theurl = "{:U('TagCloud/AJAX_set_EditTag_value')}";
+            // $.ajax({
+            //     type : 'POST',
+            //     url : theurl,
+            //     dataType : "json",
+            //     success : function(places){
+                    
+            //         jQuery.each(places, function(k, v){
+
+            //             var ele = $('label')
+
+            //         })
+
+
+            //     },
+            //     error : function(){
+            //         alert("服务器忙");
+            //     }
+            // })
+
+			$('#form-tags-1').tagsInput({
+				'onAddTag': function(input, value) {
+					console.log('tag added', input, value);
+				},
+				'onRemoveTag': function(input, value) {
+					console.log('tag removed', input, value);
+				},
+				'onChange': function(input, value) {
+					console.log('change triggered', input, value);
+				}
+            });
+            
+        });
+        
+
+	</script>
+</body>
+</html>

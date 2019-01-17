@@ -1,4 +1,6 @@
 .log
 Runtime/
 Runtime/**
+.vscode/*
+.vscode
 .DS_Store

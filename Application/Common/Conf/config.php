@@ -13,10 +13,21 @@ return array(
 		'__PHOTO__'  =>  __ROOT__.'/Public/photo',
 		'__PDF__'    =>  __ROOT__.'/Public/PDF',
 		'__CARD__'   =>  __ROOT__.'/Public/photo/Card',
-
-	
+		'__ROOT__'   => __ROOT__,	
 	),
 
-	
+
+	//数据库配置信息
+	'DB_TYPE'   => 'mysqli', // 数据库类型
+	'DB_HOST'   => 'www.ryxfzhome.top', // 服务器地址
+	'DB_NAME'   => 'ryxfzhome', // 数据库名
+	'DB_USER'   => 'root', // 用户名
+	'DB_PWD'    => 'ECA7963ac5d7', // 密码
+	'DB_PORT'   =>  3306, // 端口
+	'DB_PARAMS' =>  array(), // 数据库连接参数
+	'DB_PREFIX' => 'think_', // 数据库表前缀 
+	'DB_CHARSET'=> 'utf8', // 字符集
+	'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
+
 
 );
