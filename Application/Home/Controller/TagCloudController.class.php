@@ -1,94 +1,123 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Home\Model\TagCloudModel;
 class TagCloudController extends Controller {
 
-    /**
-     * 去过地方的数据库
-     */
-    protected $Tag_done_place = 'tag_done_place';
-    protected $Tag_done_title = "和艺璇去过的地方!";
-    protected $Tag_done_des = "想在全天下都留下和艺璇的足迹!";
-    
 
     /**
      * cache 
      */
-    protected $Cached;
+    protected $advance_cahce_tag = array();
+    protected $advance_cache_tag_edit = array();
+    /**
+     * 处理数据库操作层
+     */
+    protected $my_model;
+    
+    /**
+     * 构造函数
+     */
+    public function __construct(){
+
+        $this->my_model = D('TagCloud');
+        parent::__construct(); 
+    }
+
 
     public function index(){
 
-        $this->toggle_place_cache();
         // 采取直接渲染的方式是为了
-        $this->assign('places', $this->Cached['place_cache']);
+        $this->rule_tag();
+        $this->assign('tags', $this->advance_cahce_tag);
         $this->display();  
     }
 
-    
+    /**
+     * 编辑tag界面
+     */
     public function EditTag(){
-        $this->toggle_place_cache();
-        
-        $place = $this->Cached['place_cache'];
-        $fixplace = array();
 
-        foreach ($place as $kindsof_places) {
-            $string_place = "";
-            foreach ($kindsof_places['place'] as $value) {
-                $string_place .= $value['name'].",";
-            }
-            $tmp['place'] = substr($string_place, 0, strlen($string_place));
-            $tmp['title'] = $kindsof_places['title'];
-            $tmp['des'] = $kindsof_places['des'];
-            array_push($fixplace, $tmp);
-        }
-
-        $this->assign('fixplace', $fixplace);
+        // 拿数据
+        $this->rule_tag_edit();
+        $this->assign('fixplace', $this->advance_cache_tag_edit);
         $this->display();
     }
 
 
-
-
     /**
-     * 设置places 的值
+     * 接受修改的Ajax 请求
+     * 统一的入口
      */
-    public function AJAX_set_EditTag_value(){
+    public function save_tag(){
+
+        // 接受数据
+        $old_tag_string = $_POST['old_places'];
+        $new_tag_string = $_POST['new_places'];
+        $type = $_POST['tag_type'];
+
+        //新老tag 的数组
+        $old_tags = explode(',', $old_tag_string);
+        $new_tags = explode(',', $new_tag_string);
+
+        //adds为需要增加的tags dels需要删除的tags
+        $adds = array_diff($new_tags, $old_tags);
+        $dels = array_diff($old_tags, $new_tags);
         
-        $this->toggle_place_cache();
-        $this->ajaxReturn($this->Cached['place_cache']);
-
+        echo $this->my_model->tag_save($adds, $dels, $type);
+        
     }
 
-
-
     /**
-     * 设置place缓存
+     * 
      */
-    protected function toggle_place_cache(){
-        // 获取值
-        if(!isset($this->Cached['place_cache'])){
-            return $this->Cached['place_cache'] = $this->get_all_place();
+    protected function rule_tag(){
+        if(empty($this->advance_cahce_tag)){
+            $tag_types = $this->my_model->get_tag_type();
+            $tag = $this->my_model->get_tag();
+    
+            foreach ($tag as $key => $value) {
+                    if(!array_key_exists($value['type'], $this->advance_cahce_tag)){
+                        //不存在则新增
+                        $this->advance_cahce_tag[$value['type']] = array(
+                            'place' => array(),
+                            'title' => $tag_types[$value['type']]['title'],
+                            'des' => $tag_types[$value['type']]['des'],
+                            'type' => $value['type']
+                        );
+                 }
+                 array_push($this->advance_cahce_tag[$value['type']]['place'], ['name' =>$value['name'],'url'=>$value['url'] ]);
+            }
         }
-        return $this->Cached['place_cache'];
     }
 
 
     /**
-     * 数据库交互函数
+     * 
      */
-    protected function get_all_place(){
+    protected function rule_tag_edit(){
 
-
-        $places = array();
-        $DonePlaces = M($this->Tag_done_place) ->select();
-
-        $places['DonePlaces']["place"] = $DonePlaces;
-        $places['DonePlaces']['title'] = $this->Tag_done_title;
-        $places['DonePlaces']['des'] = $this->Tag_done_des;
-
-        return $places;
+        if(empty($this->advance_cache_tag_edit)){
+            $tag_types = $this->my_model->get_tag_type();
+            $tag = $this->my_model->get_tag();
+    
+            foreach ($tag as $key => $value) {
+                    if(!array_key_exists($value['type'], $this->advance_cache_tag_edit)){
+                        //不存在则新增
+                        $this->advance_cache_tag_edit[$value['type']] = array(
+                            'place' => '',
+                            'title' => $tag_types[$value['type']]['title'],
+                            'des' => $tag_types[$value['type']]['des'],
+                            'id'  => 'tag_type'.$value['type'],
+                            'type' => $value['type']
+                        );
+                 }
+                 $this->advance_cache_tag_edit[$value['type']]['place'] .= $value['name'].',';
+            }
+        }
 
     }
+
 
 
 }

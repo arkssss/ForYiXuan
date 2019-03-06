@@ -5,75 +5,22 @@
 </head>
 <body>
     <include file="Base/NavBar" />
-<div class="wrapper">
-    <p class="rl">{$places.DonePlaces.title}<br/>{$places.DonePlaces.des}</p>
-    <div class="tagcloud">
-      <volist name='places.DonePlaces.place' id='vo'>
-        <a href='{$vo.url}'>{$vo.name}</a>
-      </volist>>
-      <!-- <a href="#">江汉路</a>
-      <a href="#">汉街</a>
-      <a href="#">兰陵路</a>
-      <a href="#">江滩</a>
-      <a href="#">武汉科技大学</a>
-      <a href="#">金地广场</a>
-      <a href="#">群星城</a>
-      <a href="#">群光广场</a>
-      <a href="#">创意城</a>
-      <a href="#">乐天城</a>
-      <a href="#">未来城</a>
-      <a href="#">广八路</a>
-      <a href="#">k11</a>
-      <a href="#">保利广场</a>
-      <a href="#">上海外滩</a>
-      <a href="#">长沙五一广场</a>
-      <a href="#">长沙IFS</a>
-      <a href="#">永旺梦乐城（经开店)</a> -->
+
+
+<volist name='tags' id='each_tag'>
+
+    <div class="wrapper"> 
+        <p class="rl">{$each_tag.title}<br/>{$each_tag.des}</p>
+      <div class="tagcloud">
+        <volist name='each_tag.place' id='each_place'>
+          <a href="{$each_place.url}">{$each_place.name}</a> 
+        </volist>
+      </div>
     </div>
-</div><!--wrapper-->
-<div class="wrapper"> 
-    <p class="rl">和艺璇打卡的店铺<br/>死任狗看就看饱</p>
-  <div class="tagcloud">
-    <a href="#">双喜铁板烧(五星好评)</a>
-    <a href="#">广八路 原汤牛肉面</a>
-    <a href="#">50岚</a>
-    <a href="#">表哥</a>
-    <a href="#">蓉城老院</a>
-    <a href="#">小龙坎</a>
-    <a href="#">长沙MaoLiveHouse</a>
-    <a href="#">奈雪的茶（蟹蟹包 菠萝芝士 奥利奥魔法棒 火龙果芝士）</a>
-    <a href="#">偏爱</a>
-    <a href="#">仟吉</a>
-    <a href="#">裕禾</a>
-    <a href="#">皇冠幸福里</a>
-    <a href="#">研酵小山</a>
-    <a href="#">汉街星巴克</a>
-    <a href="#">群光星巴克</a>
-    <a href="#">永旺星巴克</a>
-    <a href="#">东北人烤肉</a>
-    <a href="#">哈根达斯🍦</a>
-    <a href="#">托比拉面🍜</a>
-    <a href="#">蹦猪🐷(为了买面包买一送一, 逛了超市多花了48??)</a>
-  </div>
-</div>
 
-<div class="wrapper"> 
-    <p class="rl">未来想和艺璇去的地方<br/>逐渐消灭！!!</p>
-  <div class="tagcloud">
-    <a href="#">上海迪士尼</a>
-    <a href="#">欢乐谷夜场</a>
-    <a href="#">宜家</a>
-    <a href="#">古德寺</a>
-    <a href="#">兰陵路</a>
-    <a href="#">徐东大街</a>
-    <a href="#">蓝色教堂</a>
-    <a href="#">湖北美术馆</a>
-    <a href="#">霸王餐（面包）</a>
-    <a href="#">霸王餐（密室逃脱）</a>
-  </div>
-</div>
+</volist>
 
-<div class="wrapper"> 
+<!-- <div class="wrapper"> 
     <p class="rl">未来想和艺璇吃的馆子<br/>就知道吃??</p>
   <div class="tagcloud">
     <a href="#">精粉世家</a>
@@ -85,7 +32,7 @@
     <a href="#">上海鲍师傅</a>
     <a href="#">书亦 烧仙草</a>
   </div>
-</div>
+</div> -->
 
 <script type="text/javascript">
     /*3D标签云*/

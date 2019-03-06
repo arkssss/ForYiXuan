@@ -2,66 +2,110 @@
     <import type='css'  file = "CSS/TagCloud/jquery_tagsinput-revisited"/>
     <import type='js'  file = "JS/TagCloud/jquery_tagsinput-revisited"/>
 	<style type="text/css">
+		.jumbotron{
+			background : url('__PHOTO__/Jumu/jumu.png');
+			-moz-background-size:63px 100px; /* 老版本的 Firefox */
+			background-size:1700px 400px;
+			background-repeat:no-repeat;
+			color:antiquewhite;
+			height: 400px;
+			padding: 200px
+			
+		}
 		.jq22-content {
 			width: 800px;
 			margin: 20px auto;
 		}
-		label {
-			display: block;
-			padding: 20px 0 5px 0;
+		.one_tag_group{
+			margin: 50px 0;
+			
 		}
     </style>
 	</head>
 	<body>
-<div class="jq22-content">
-		<form id="form">        
+<div class="jumbotron">
+</div>
+<h1 class="text-center text-info">小任任同学常来种草拔草哦</h1>
+<h2 class="text-center text-info">输入之后按enter(回车键)添加, 删除直接点又上小叉叉, 最后别忘了确定才会生效哦🐷</h2>
+<div class="jq22-content volist_tag">
+
         <volist name="fixplace" id="places">
-                <label>{$places.title} (Enter 保存)</label>
-                <input id="form-tags-1" name="tags-1" type="text" value= "{$places.place}">        
-        </volist>   
+				<div class="one_tag_group">
+					<h3 class="text-center">{$places.title}</h3>
+					<input class="tags" id="{$places.id}" type="text" old = "{$places.place}" value= "{$places.place}">  
+					<br/>      
+					<button class="tag_submit btn btn-primary btn-lg center" name='{$places.id}' type='{$places.type}'>确定</button>
+				</div>
+		</volist>   
+</div>
+<include file="Base/dialog_isyixuan"/>
+<!-- <import type='js'  file = "JS/TagCloud/tag_edit"/> -->
+<script>
+$(function() {
+
+$(".tag_submit").click(function(){
+
+	var is_yixuan = $.cookie('isyixuan');
+
+	if(is_yixuan){
+
+		switch (is_yixuan){
+
+			case 'yes' : 
+				var button_name = $(this).attr('name');
+				var button_type = $(this).attr('type');
+				
+	
+				var old_places = $("#"+button_name+"").attr("old")
+				var new_places = $("#"+button_name+"").val()
+	
+				var theurl = "{:U('TagCloud/save_tag')}";
+				$.post(
+					theurl,
+					{	
+						'new_places'  : new_places,
+						'old_places'  : old_places,
+						'tag_type'    : button_type,
+					},
+					function(data) {
+						alert(data);
+						location.reload();
+	
+					}
+				)
+			break;
+			default : alert("你不是艺璇, 不能操作"); 
+
+		}
+
+
+	}else{
+
+		$('#myModal').modal('toggle');  
+
+	}
+})
 
 
 
-	</form>
-	</div>
 
-<script type="text/javascript">
-		$(function() {
-            // var theurl = "{:U('TagCloud/AJAX_set_EditTag_value')}";
-            // $.ajax({
-            //     type : 'POST',
-            //     url : theurl,
-            //     dataType : "json",
-            //     success : function(places){
-                    
-            //         jQuery.each(places, function(k, v){
+// ----------------------- original plugin
 
-            //             var ele = $('label')
-
-            //         })
+$('.tags').tagsInput({
+	'onAddTag': function(input, value) {
+		console.log('tag added', input, value);
+	},
+	'onRemoveTag': function(input, value) {
+		console.log('tag removed', input, value);
+	},
+	'onChange': function(input, value) {
+		console.log('change triggered', input, value);
+	}
+});
 
 
-            //     },
-            //     error : function(){
-            //         alert("服务器忙");
-            //     }
-            // })
 
-			$('#form-tags-1').tagsInput({
-				'onAddTag': function(input, value) {
-					console.log('tag added', input, value);
-				},
-				'onRemoveTag': function(input, value) {
-					console.log('tag removed', input, value);
-				},
-				'onChange': function(input, value) {
-					console.log('change triggered', input, value);
-				}
-            });
-            
-        });
-        
-
-	</script>
+});
+</script>
 </body>
 </html>

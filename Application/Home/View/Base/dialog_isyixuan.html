@@ -1,0 +1,78 @@
+<!-- <h2>创建模态框（Modal）</h2> -->
+<!-- 按钮触发模态框 -->
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编辑操作只有艺璇有特权, 回答问题以确定你是艺璇</h4>
+            </div>
+            <div class="modal-body">
+
+                    <!-- <form class="bs-example bs-example-form" role="form">
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input type="text" class="form-control" placeholder="twitterhandle">
+                            </div>
+                    </form> -->
+                    <label>请问二号革命根据地是?</label>
+                    <br/>
+                    <label class="radio-inline">
+                            <input name="optionsRadios" type="radio"  value="1"> 图书馆
+                    </label>
+                    <label class="radio-inline">
+                        <input name="optionsRadios" type="radio"  value="2"> 树林长椅
+                    </label>
+                    <label class="radio-inline">
+                        <input name="optionsRadios" type="radio"  value="3"> 操场小树林
+                    </label>
+                    <label class="radio-inline">
+                            <input  name="optionsRadios" type="radio" value="4"> 生科院后
+                    </label>
+
+            </div>
+
+            <div class="wrong_answer alert alert-danger" alert_time = '0' style="display:none">
+                    错误 ❌! 再给你一次机会
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id='submit_answer'>提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+
+    $("#submit_answer").click(function(){
+
+        var value = $("input[name=optionsRadios]:checked").val();
+
+        if(value == '2') {
+
+            alert("艺璇你好呀!!!嘻嘻嘻嘻, 取种草吧");
+            $.cookie("isyixuan", 'yes', { expires : 1 });
+            $('#myModal').modal('toggle');
+
+        }else{
+
+            var wrong_time = $('.wrong_answer').attr('alert_time');
+            if(wrong_time == '0'){
+                $('.wrong_answer').css('display','block');
+                $('.wrong_answer').attr('alert_time', '1')
+            }else{
+                alert("你不是艺璇, 将无权操作");
+                $.cookie("isyixuan", 'no', { expires : 1 });
+                $('#myModal').modal('toggle');
+            }
+
+        } 
+
+
+    })
+
+</script>
