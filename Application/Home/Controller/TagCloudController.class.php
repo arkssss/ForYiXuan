@@ -38,8 +38,10 @@ class TagCloudController extends Controller {
      */
     public function EditTag(){
 
+
         // 拿数据
         $this->rule_tag_edit();
+        // var_dump($this->advance_cache_tag_edit);
         $this->assign('fixplace', $this->advance_cache_tag_edit);
         $this->display();
     }
@@ -63,9 +65,21 @@ class TagCloudController extends Controller {
         //adds为需要增加的tags dels需要删除的tags
         $adds = array_diff($new_tags, $old_tags);
         $dels = array_diff($old_tags, $new_tags);
-        
+
         echo $this->my_model->tag_save($adds, $dels, $type);
         
+    }
+
+    /**
+     * 新增tag 的ajax入口函数
+     */
+    public function add_tag(){
+
+        $tag_name = $_POST['name'];
+        $tag_des  = $_POST['des'];
+    
+        echo $this->my_model->tag_add($tag_name, $tag_des);
+
     }
 
     /**
@@ -113,6 +127,22 @@ class TagCloudController extends Controller {
                         );
                  }
                  $this->advance_cache_tag_edit[$value['type']]['place'] .= $value['name'].',';
+            }
+            //去除末尾的逗号
+            foreach ($this->advance_cache_tag_edit as $key => &$value){
+                $value['place'] = substr($value['place'], 0, -1);
+            }
+            foreach ($tag_types as $key => $item) {
+                if(!array_key_exists($key, $this->advance_cache_tag_edit)){
+                    //  说明此时的type中 , 还没有一个tag
+                    $this->advance_cache_tag_edit[$key] = array(
+                        'place' => '',
+                        'title' => $item['title'],
+                        'des' => $item['type']['des'],
+                        'id'  => 'tag_type'.$key,
+                        'type' => $key
+                    );
+                }
             }
         }
 

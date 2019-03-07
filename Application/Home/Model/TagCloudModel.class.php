@@ -83,7 +83,7 @@ public function tag_save($adds ,$dels, $type){
 
     if(empty($adds) && empty($dels)){
 
-        return "小任你没有更新数据!";
+        return "小任你没有更新数据哦!";
 
     }else{
         $tag_model = M($this->trueTagTable);
@@ -110,6 +110,24 @@ public function tag_save($adds ,$dels, $type){
 
 }
 
+/**
+ * 新增足迹
+ */
+public function tag_add($name, $des){
+
+    if(empty($name) || empty($des)){
+
+        return "请小任任不要提交空足迹哦";
+
+    }else{
+        $data['name'] = $name;
+        $data['des'] = $des;
+        M($this->trueTagTypeTable)->data($data)->add();
+        return "小任任新增成功";
+        
+    }
+
+}
 
 
 }
