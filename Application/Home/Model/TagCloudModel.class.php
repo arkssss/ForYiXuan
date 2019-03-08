@@ -79,33 +79,45 @@ protected function realget_tag(){
 
 
 // ---------------------- 数据更新 层
-public function tag_save($adds ,$dels, $type){
+public function tag_save($adds ,$dels, $type, $tag_type_name = "", $tag_type_des = ""){
 
-    if(empty($adds) && empty($dels)){
 
-        return "小任你没有更新数据哦!";
+    $tag_model = M($this->trueTagTable);
+    $tag_type_model = M($this->trueTagTypeTable);
 
-    }else{
-        $tag_model = M($this->trueTagTable);
-        
-        if(!empty($dels)){
-            //先删除
-            $map['name'] = array('IN', $dels);
-            $map['type'] = $type;
-            $tag_model->where($map)->delete();
-        }
-        $datalist = [];
-        if(!empty($adds)){
-        //后添加    
-            foreach ($adds as $key => $value) {
-                array_push($datalist, array('type'=>$type, 'name'=> $value, 'url' => '#'));
-            }
-            $tag_model -> addAll($datalist);
-        }
-        
-        return "恭喜小任更新成功啦!";
-
+    $tag_model -> startTrans();
+    $dels_tag = true ; $add_tag = true; $update_type = true;
+    if(!empty($dels)){
+        //先删除
+        $map['name'] = array('IN', $dels);
+        $map['type'] = $type;
+        $dels_tag = $tag_model->where($map)->delete();
     }
+
+    if(!empty($adds)){
+    //后添加    
+        $datalist = [];
+        foreach ($adds as $key => $value) {
+            array_push($datalist, array('type'=>$type, 'name'=> $value, 'url' => '#'));
+        }
+        $add_tag = $tag_model -> addAll($datalist);
+    }
+    $data = [];
+    if(!empty($tag_type_name)) $data['name'] = $tag_type_name;
+    if(!empty($tag_type_des)) $data['des'] = $tag_type_des;
+    if(!empty($data)){
+        $update_type = $tag_type_model->where(['id'=>$type])->save($data);
+    }
+    if($dels_tag && $add_tag && $update_type) {
+        $tag_model->commit();
+        // return "小任任保存成功啦~~";
+        return C('AJAX_RETURN_TEXT.SAVE_SUCCESS');
+    }else{
+        $tag_model->rollback();
+        return C('AJAX_RETURN_TEXT.SAVE_FAIL');
+    }
+
+
 
 
 }
@@ -115,19 +127,44 @@ public function tag_save($adds ,$dels, $type){
  */
 public function tag_add($name, $des){
 
-    if(empty($name) || empty($des)){
-
-        return "请小任任不要提交空足迹哦";
-
-    }else{
         $data['name'] = $name;
         $data['des'] = $des;
         M($this->trueTagTypeTable)->data($data)->add();
-        return "小任任新增成功";
+        return C("AJAX_RETURN_TEXT.ADD_SUCCESS");
         
+}
+
+
+/**
+ * 删除足迹
+ */
+public function tag_del($type = "", $places = ""){
+
+
+    if(!empty($type)){
+        $tag_model = M($this->trueTagTable);
+        $tag_type_model = M($this->trueTagTypeTable);
+
+        $tag_model -> startTrans();
+
+        $tag_flag = true ; $tag_type_flag = true;
+        //如果没有tag, 则没有必要去删除
+        !$places || $tag_flag = $tag_model->where(['type' => $type])->delete();
+        $tag_type_flag = $tag_type_model -> where(['id'=>$type]) ->delete();
+        if($tag_type_flag && $tag_flag){
+            $tag_model->commit();
+            return C("AJAX_RETURN_TEXT.DEL_SUCCESS");
+        }else{
+            $tag_model->rollback();
+        }
     }
 
+    return C("AJAX_RETURN_TEXT.SAVE_FAIL");
+
+
 }
+
+
 
 
 }

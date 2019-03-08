@@ -14,6 +14,7 @@ return array(
 		'__PDF__'    =>  __ROOT__.'/Public/PDF',
 		'__CARD__'   =>  __ROOT__.'/Public/photo/Card',
 		'__ROOT__'   => __ROOT__,	
+		'__PLUGIN__'	 =>  __ROOT__.'/Public/Plugin'
 	),
 
 

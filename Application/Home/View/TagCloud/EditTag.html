@@ -2,7 +2,10 @@
     <import type='css'  file = "CSS/TagCloud/jquery_tagsinput-revisited"/>
     <import type='js'  file = "JS/TagCloud/jquery_tagsinput-revisited"/>
 	<style type="text/css">
-		.jumbotron{
+		body, html { 
+			background-color: white !important;
+		 }
+		.jumbotron{	
 			background : url('__PHOTO__/Jumu/jumu.png');
 			-moz-background-size:63px 100px; /* 老版本的 Firefox */
 			background-size:1700px 400px;
@@ -26,30 +29,44 @@
     </style>
 	</head>
 	<body>
+<!-- 包含侧栏的导航条 -->
+<include file="Base/NavBar" />	
 <div class="jumbotron">
 </div>
-<h1 class="text-center text-info">小任任同学常来种草拔草哦</h1>
-<h2 class="text-center text-info">输入之后按enter(回车键)添加, 删除直接点右上小叉叉, 最后别忘了确定才会生效哦🐷</h2>
+<h1 class="text-center text-info">爱情种草机(hhh求求你帮我想一个名字吧)</h1>
 <div class="jq22-content volist_tag">
-		<hr/>
+		<button class="illsion btn btn-info btn-lg">查看种草手册<span class="text-danger">(NEW)</span></button>
+		<hr>
 		<h2>已有足迹编辑</h2>
         <volist name="fixplace" id="places">
-				<div class="one_tag_group">
-					<h3 class="text-center">{$places.title}</h3>
+				<div class="one_tag_group form">
+					<h3 class="text-center text-info">足迹: {$places.title}</h3>
+					<div class="form-group">
+						<label for="tag_title">足迹名称: </label>
+						<input type="text" class="form-control" id="tag_title_{$places.id}" name='tag_title' old= "{$places.title}" value="{$places.title}">
+					</div>
+					<div class="form-group">
+						<label>足迹描述: </label>
+						<input type="text" class="form-control" id="tag_des_{$places.id}" name='tag_des' old = "{$places.des}" value="{$places.des}">
+					</div>	
+					<!-- <h3 class="text-center">{$places.title}</h3> -->
+					<div class="form-group">
 					<input class="tags" id="{$places.id}" type="text" old = "{$places.place}" value= "{$places.place}">  
+					</div>
 					<br/>      
-					<button class="tag_submit btn btn-primary btn-lg" name='{$places.id}' type='{$places.type}'>确定</button>
+					<button class="tag_update btn btn-primary btn-lg" name='{$places.id}' type='{$places.type}'>确定</button>
+					<button class="tag_remove btn btn-danger btn-lg pull-right" name='{$places.id}' type='{$places.type}'>删除该足迹</button>
 				</div>
+				<hr>
 		</volist>   
-		<hr/>
 		<h2>新增自定义足迹</h2>
 		<form role="form">
 				<div class="form-group">
-				   <label for="tag_name">足迹名称</label>
+				   <label>足迹名称</label>
 				   <input type="text" class="form-control" id='new_tag_name' name='name' placeholder="请输入足迹名称">
 				</div>
 				<div class="form-group">
-					<label for="tag_des">足迹描述</label>
+					<label>足迹描述</label>
 					<input type="text" class="form-control" id='new_tag_des' name='des' placeholder="为新增加的足迹加入简短的描述信息吧">
 				</div>
 				<button type="button" class="new_tag_submit btn btn-primary btn-lg">提交</button>
@@ -58,6 +75,70 @@
 <include file="Base/dialog_isyixuan"/>
 <script>
 $(function() {
+
+
+//手册开关
+$(".illsion").click(function(){
+
+	layer.open({
+	type: 2,
+	title: '种草手册',
+	shadeClose: true,
+	shade: 0.8,
+	area: ['500px', '90%'],
+	content: "{:U('TagCloud/illusion')}" //iframe的url
+	});
+
+})
+
+
+//足迹删除
+$(".tag_remove").click(function(){
+
+	//不是艺璇则退出
+	if(!is_yixuan()) return;
+	var button_name = $(this).attr('name');
+
+	var type = $(this).attr('type');
+	var this_tag = $(this).parent();
+	var old_places = $("#"+button_name+"").attr("old")
+
+	layer.confirm('小任任确定要删除吗?', {
+		btn: ['是的, 我就是这么冷漠','再想想'], //按钮
+		skin: 'layui-layer-lan', 
+		title :'小舟说:' 
+		}, 
+		function(index){
+			//删除操作
+			//loading 
+			layer.close(index);
+			var my_loading = layer.load(1, {
+				shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});	
+			var theurl = "{:U('TagCloud/del_tag')}"
+			$.post(
+				theurl,
+				{	
+					'type'   : type,
+					'old_places' : old_places
+				},
+				function(data) {
+					//弹窗
+					layer.alert(data, {skin: 'layui-layer-lan', title :'小舟说:'});
+					//关闭loading
+					layer.close(my_loading);
+					//页面隐藏取代刷新
+					this_tag.css('display','none');
+
+				}
+			)
+			
+		}, 
+
+	);
+
+});
+
 // 新增足迹提交
 $(".new_tag_submit").click(function(){
 
@@ -76,7 +157,7 @@ $(".new_tag_submit").click(function(){
 					'des'   : des
 				},
 				function(data) {
-					alert(data);
+					alert(data, {skin: 'layui-layer-lan', title :'小舟说:'});
 					location.reload();
 
 				}
@@ -84,7 +165,7 @@ $(".new_tag_submit").click(function(){
 
 	}else{
 
-		alert("小任任不能提交空内容哦");
+		layer.alert("小任任不能提交空内容哦", {skin: 'layui-layer-lan', title :'小舟说:'});
 
 
 	}
@@ -94,18 +175,35 @@ $(".new_tag_submit").click(function(){
 })
 
 
-$(".tag_submit").click(function(){
+$(".tag_update").click(function(){
 
 		//是不是艺璇的验证判断
 		if(!is_yixuan()) return false;
 
 		var button_name = $(this).attr('name');
 		var button_type = $(this).attr('type');
-		
+
 
 		var old_places = $("#"+button_name+"").attr("old")
 		var new_places = $("#"+button_name+"").val()
+		
+		var new_title  = $("#tag_title_"+button_name+"").val();
+		var old_title = $("#tag_title_"+button_name+"").attr("old");
 
+		var new_des  = $("#tag_des_"+button_name+"").val();
+		var old_des  = $("#tag_des_"+button_name+"").attr("old");
+
+		var tag_title  = new_title != old_title ? new_title : "";
+		var tag_des = new_des != old_des ? new_des : "";
+
+		console.log(old_places);
+		console.log(new_places);
+		//没有更新直接返回
+		if(!tag_title && !tag_des && (old_places == new_places)) {layer.alert("小任任你没有更新哦",{skin: 'layui-layer-lan', title :'小舟说:'}); return;} 
+
+		$(this).text("小舟拼命处理中...");
+		$(this).attr("disabled", "disabled");
+		
 		var theurl = "{:U('TagCloud/save_tag')}";
 		$.post(
 			theurl,
@@ -113,16 +211,17 @@ $(".tag_submit").click(function(){
 				'new_places'  : new_places,
 				'old_places'  : old_places,
 				'tag_type'    : button_type,
+				'tag_title'   : tag_title,
+				'tag_des'     : tag_des
 			},
 			function(data) {
-				alert(data);
+				layer.alert(data, {skin: 'layui-layer-lan', title :'小舟说:'});
 				location.reload();
 
 			}
 		)
 
 })
-
 
 
 
@@ -144,5 +243,6 @@ $('.tags').tagsInput({
 
 });
 </script>
+<include file="Base/foot"/>
 </body>
 </html>

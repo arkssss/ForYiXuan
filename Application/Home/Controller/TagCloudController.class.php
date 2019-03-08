@@ -46,6 +46,26 @@ class TagCloudController extends Controller {
         $this->display();
     }
 
+    /**
+     * 接受tag删除的统一入口
+     */
+    public function del_tag(){
+
+        $type = $_POST['type'];
+        $places = $_POST['old_places'];
+
+        echo $this->my_model->tag_del($type, $places);
+
+    }
+
+/**
+ * 展示引导手册
+ */
+public function illusion(){
+
+    $this->display();
+
+}
 
     /**
      * 接受修改的Ajax 请求
@@ -57,16 +77,20 @@ class TagCloudController extends Controller {
         $old_tag_string = $_POST['old_places'];
         $new_tag_string = $_POST['new_places'];
         $type = $_POST['tag_type'];
+        $tag_title = $_POST['tag_title'];
+        $tag_des = $_POST['tag_des'];
 
         //新老tag 的数组
-        $old_tags = explode(',', $old_tag_string);
-        $new_tags = explode(',', $new_tag_string);
+        $old_tags = explode('|', $old_tag_string);
+        $new_tags = explode('|', $new_tag_string);
 
+        $adds = array();
+        $dels = array();
         //adds为需要增加的tags dels需要删除的tags
-        $adds = array_diff($new_tags, $old_tags);
-        $dels = array_diff($old_tags, $new_tags);
+        !$new_tag_string || $adds = array_diff($new_tags, $old_tags);
+        !$old_tag_string || $dels = array_diff($old_tags, $new_tags);
 
-        echo $this->my_model->tag_save($adds, $dels, $type);
+        echo $this->my_model->tag_save($adds, $dels, $type, $tag_title, $tag_des);
         
     }
 
@@ -107,7 +131,7 @@ class TagCloudController extends Controller {
 
 
     /**
-     * 
+     * 处理出入格式
      */
     protected function rule_tag_edit(){
 
@@ -126,7 +150,7 @@ class TagCloudController extends Controller {
                             'type' => $value['type']
                         );
                  }
-                 $this->advance_cache_tag_edit[$value['type']]['place'] .= $value['name'].',';
+                 $this->advance_cache_tag_edit[$value['type']]['place'] .= $value['name'].'|';
             }
             //去除末尾的逗号
             foreach ($this->advance_cache_tag_edit as $key => &$value){
@@ -138,13 +162,14 @@ class TagCloudController extends Controller {
                     $this->advance_cache_tag_edit[$key] = array(
                         'place' => '',
                         'title' => $item['title'],
-                        'des' => $item['type']['des'],
+                        'des' => $item['des'],
                         'id'  => 'tag_type'.$key,
                         'type' => $key
                     );
                 }
             }
         }
+
 
     }
 

@@ -103,7 +103,7 @@
 	$.fn.tagsInput = function(options) {
 		var settings = jQuery.extend({
 			interactive: true,
-			placeholder: 'Add a tag',
+			placeholder: '小任任加一个标签吧~',
 			minChars: 0,
 			maxChars: null,
 			limit: null,
@@ -112,8 +112,8 @@
 			height: 'auto',
 			autocomplete: null,
 			hide: true,
-			delimiter: ',',
-			unique: true,
+			delimiter: '|', //修改分割符号
+			unique: false,	//可以允许相同tag
 			removeWithBackspace: true
 		}, options);
 
