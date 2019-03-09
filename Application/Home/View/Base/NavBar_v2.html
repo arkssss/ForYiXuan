@@ -1,0 +1,80 @@
+<style type="text/css"> 
+/* .navbar{
+    background-color: #020302;
+} */
+.NavBar_v2{
+    width: 70%;
+    margin: 0 auto;
+
+}
+/* .navbar-default .navbar-nav > li > a {
+    color: pink;
+} */
+.NarBar_brand{
+                width:15%; 
+                transform: rotate(-90deg);
+            }
+.NavBar_content{
+        padding-top: 10px;
+}
+
+    		/* 手机显示的CSS */
+@media screen and (max-width: 720px){
+
+
+            .NavBar_v2 {
+                width: 80%;
+                margin: 0 auto;
+            }
+            .NarBar_brand{
+                width:10%; 
+                transform: rotate(-90deg);
+            }
+
+}
+
+</style>
+
+<nav class="navbar navbar-default navbar-fixed-top row navbar-inverse" role="navigation">
+    <!-- <div class="pull-left col-lg-2">
+        <h2 class="text-info">小任&小方</h2>
+    </div> -->
+    <div class="container-fluid row center-block NavBar_v2"> 
+
+        <div class="navbar-header col-lg-4 pull-left">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <img src="__PHOTO__/NavBar/brand.jpg" class="img-circle NarBar_brand" alt="小任和小舟的Web">
+        </div>
+
+        <div class="collapse navbar-collapse col-lg-8 text-center NavBar_content" id="example-navbar-collapse">
+            <ul class="nav navbar-nav row">
+                <li class="text-bolder"><a href="__PDF__/love_contact.pdf">恋爱合约</a></li>
+                <li><a href="{:U('TimeCounter/index')}">倒计时 & 纪念日</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+                        足迹云 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{:U('TagCloud/index')}">我们的足迹云</a></li>
+                        <li><a href="{:U('TagCloud/EditTag')}">编辑足迹云<span class="text-danger">(NEW)</span></a></li>
+                        <!-- <li><a href="#">Jasper Report</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">分离的链接</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另一个分离的链接</a></li> -->
+                    </ul>
+                </li>
+                <li><a href="{:U('PhotoWall/index')}">照片墙</a></li>
+                <li><a href="{:U('beginning/index')}">相对你说</a></li>
+                <li><a href="{:U('Card/index')}">爱心卡片</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>

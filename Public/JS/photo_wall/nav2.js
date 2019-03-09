@@ -71,6 +71,8 @@ $(window).load(function(){
 		blobPath.attr('d', newCurve2);
 
 		blob.width(curveX+60);
+		
+		// blob.width(curveX);
 
 		hamburger.css('transform', 'translate('+curveX+'px, '+curveY+'px)');
     

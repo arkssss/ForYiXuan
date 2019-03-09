@@ -7,16 +7,16 @@
 		 }
 		.jumbotron{	
 			background : url('__PHOTO__/Jumu/jumu.png');
-			-moz-background-size:63px 100px; /* 老版本的 Firefox */
+			/* -moz-background-size:63px 100px; 老版本的 Firefox */
 			background-size:1700px 400px;
 			background-repeat:no-repeat;
 			color:antiquewhite;
-			height: 400px;
-			padding: 200px
+			height: 400px;	
+			/* padding: 200px */
 			
 		}
 		.jq22-content {
-			width: 800px;
+			width: 50%;
 			margin: 20px auto;
 		}
 		.one_tag_group{
@@ -26,13 +26,23 @@
 		.volist_tag{
 			margin-top : 80px;
 		}
+		/* 手机显示的CSS */
+		@media screen and (max-width: 600px){
+
+
+		.jq22-content {
+			width: 80%;
+			margin: 20px auto;
+		}
+
+
+		}
     </style>
 	</head>
 	<body>
 <!-- 包含侧栏的导航条 -->
-<include file="Base/NavBar" />	
-<div class="jumbotron">
-</div>
+<include file="Base/NavBar_v2" />	
+<div class="jumbotron"></div>
 <h1 class="text-center text-info">爱情种草机(hhh求求你帮我想一个名字吧)</h1>
 <div class="jq22-content volist_tag">
 		<button class="illsion btn btn-info btn-lg">查看种草手册<span class="text-danger">(NEW)</span></button>
@@ -85,7 +95,7 @@ $(".illsion").click(function(){
 	title: '种草手册',
 	shadeClose: true,
 	shade: 0.8,
-	area: ['500px', '90%'],
+	area: ['80%', '80%'],
 	content: "{:U('TagCloud/illusion')}" //iframe的url
 	});
 

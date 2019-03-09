@@ -4,7 +4,7 @@
   <import type='css' file='CSS/TagCloud/demo' />
 </head>
 <body>
-    <include file="Base/NavBar" />
+    <include file="Base/NavBar_v2" />
 
 
 <volist name='tags' id='each_tag'>
@@ -13,7 +13,7 @@
         <p class="rl">{$each_tag.title}<br/>{$each_tag.des}</p>
       <div class="tagcloud">
         <volist name='each_tag.place' id='each_place'>
-          <a href="{$each_place.url}">{$each_place.name}</a> 
+          <a href="javascript:void(0)">{$each_place.name}</a> 
         </volist>
       </div>
     </div>
