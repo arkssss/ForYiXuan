@@ -11,7 +11,7 @@
     color: pink;
 } */
 .NarBar_brand{
-                margin-top: 2px; 
+                margin-top: 3px; 
                 width:20%; 
                 /* transform: rotate(-90deg); */
             }
@@ -28,8 +28,9 @@
                 margin: 0 auto;
             }
             .NarBar_brand{
-                margin-top: 2px; 
+                margin-top: 3px; 
                 width:18%; 
+                /* display: none; */
                 /* transform: rotate(-90deg); */
             }
 
@@ -51,12 +52,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-                <img src="__PHOTO__/NavBar/brand.png" class="img-circle NarBar_brand" alt="小任和小舟的Web">
+                <img src="__PHOTO__/NavBar/brand_first.png" class="img-circle NarBar_brand" alt="小任和小舟的Web">
         </div>
 
         <div class="collapse navbar-collapse col-lg-8 text-center NavBar_content" id="example-navbar-collapse">
             <ul class="nav navbar-nav row">
-                <li class="text-bolder"><a href="__PDF__/love_contact.pdf">恋爱合约</a></li>
+                <li class="text-bolder"><a href="{:U('LoveContract/index')}">恋爱合约</a></li>
                 <li><a href="{:U('TimeCounter/index')}">倒计时 & 纪念日</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
@@ -73,7 +74,7 @@
                     </ul>
                 </li>
                 <li><a href="{:U('PhotoWall/index')}">照片墙</a></li>
-                <li><a href="{:U('beginning/index')}">相对你说</a></li>
+                <li><a href="{:U('beginning/index')}">想对你说</a></li>
                 <li><a href="{:U('Card/index')}">爱心卡片</a></li>
             </ul>
         </div>

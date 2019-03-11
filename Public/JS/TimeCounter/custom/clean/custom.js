@@ -8,10 +8,10 @@
 
     $(document).ready(function () {
 
-        var $defaulteCounter = $(".counter");
-        var $defaulteCounter2 = $(".counter2");
-        var $defaulteCounter3 = $(".counter3");
-        console.log($defaulteCounter);
+        var $defaulteCounter = $("#counter");
+        var $defaulteCounter2 = $("#counter2");
+        var $defaulteCounter3 = $("#counter3");
+        // console.log($defaulteCounter);
 
         if ($defaulteCounter.length) {
             //enter the last menstrual period date using the date format  year, month, day

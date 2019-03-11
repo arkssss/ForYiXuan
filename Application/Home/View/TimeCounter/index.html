@@ -10,10 +10,13 @@
 .chart-summary{
     /* display: none !important; */
 }
-.time_div{
-    width: 660px;
-    margin: 0 auto !important;
-    padding: 60px 0 !important;
+@media screen and (max-width: 600px){
+
+    #logo{
+
+        font-size: 45px;
+
+    }
 }
 </style>
 
@@ -89,7 +92,7 @@
 
             <div>
 
-                <div class="counter"></div>
+                <div id= "counter" class="counter"></div>
 
             </div><!-- /// end Body ///  -->
 
@@ -135,7 +138,7 @@
     
                 <div>
     
-                    <div class="counter2 time_div"></div>
+                    <div id="counter2" class="counter"></div>
     
                 </div><!-- /// end Body ///  -->
     
@@ -180,7 +183,7 @@
     
                 <div>
     
-                    <div class="counter3 time_div"></div>
+                    <div id="counter3" class="counter"></div>
     
                 </div><!-- /// end Body ///  -->
     
@@ -192,7 +195,8 @@
 
     </div>
 
-
+    <!-- /// Custom ///  -->
+    <import type='js'  file = "JS/TimeCounter/custom/clean/custom"/>
 
     <!-- /// Modernizr ///  -->
     <import type='js'  file = "JS/TimeCounter/modernizr/modernizr_custom"/>
@@ -209,14 +213,13 @@
     <import type='js'  file = "JS/TimeCounter/tictic/jquery_tictic_min"/>
 
 
-    <!-- /// Custom ///  -->
-    <import type='js'  file = "JS/TimeCounter/custom/clean/custom"/>
+
     
     
 
 
         
-
+    <include file="Base/foot"/>
 </body>
 
 </html>
