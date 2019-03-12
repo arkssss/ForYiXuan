@@ -1,7 +1,7 @@
 body {background: #1b2225;}
 .fl{ float: left; }
 .fr{ float: right; }
-.wrapper{ width: 1000px; height: 600px; margin: 0 auto; margin-bottom: 200px} 
+.wrapper{ width: 80%; height: 600px; margin: 0 auto; margin-bottom: 200px} 
 .wrapper p{ padding-top: 100px; 
             line-height: 27px;
             line-break: 20px;

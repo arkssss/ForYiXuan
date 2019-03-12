@@ -1,0 +1,58 @@
+<include file="Base/head"/>
+</head>
+<style type="text/CSS">
+
+    #editor{
+
+    }
+
+
+</style>
+
+<body>
+    <div id="editor">
+    </div>
+    <button id="submit" class="btn btn-lg btn-info">提交</button>
+    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+    <script type="text/javascript" src="__PLUGIN__/wangEditor/release/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+        editor.customConfig.uploadImgServer = '{:U("DailyBoard/upload")}';  // 上传图片到服务器 上传tab
+        editor.customConfig.uploadFileName = 'myFileName';
+        editor.customConfig.uploadImgHeaders = {
+            'Accept': 'text/x-json'
+        }
+        // editor.customConfig.customAlert = function (info) {
+        //     // info 是需要提示的内容
+        //     alert('自定义提示：' + info)
+        // }
+        editor.customConfig.uploadImgHooks = {
+            before : function(xhr, editor, files) {
+                
+            },
+            success : function(xhr, editor, result) {
+                console.log("上传成功");
+            },
+            fail : function(xhr, editor, result) {
+                console.log("上传失败,原因是"+result);
+            },
+            error : function(xhr, editor) {
+                console.log("上传出错");
+            },
+            timeout : function(xhr, editor) {
+                console.log("上传超时");
+            }
+        }
+
+        editor.create()
+        
+        $("#submit").click(function(){
+            alert(editor.txt.html())
+        })
+
+    </script>
+</body>
+</html>
