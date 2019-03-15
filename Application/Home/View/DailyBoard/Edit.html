@@ -99,7 +99,6 @@ $(document).ready(function(){
         var edit_html = editor.txt.html();
         var edit_text = editor.txt.text();
         var theurl = "{:U('DailyBoard/add')}";
-        alert(edit_html);
         if(!edit_text) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
 
         $.post(

@@ -75,7 +75,7 @@
                 </li>
                 <li><a href="{:U('PhotoWall/index')}">照片墙</a></li>
                 <li><a href="{:U('beginning/index')}">想对你说</a></li>
-                <li class="dropdown">
+                <li class="dropdown navbar_our_sayings">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
                             留言板<span class="text-danger">(NEW)</span> <b class="caret"></b>
                         </a>
@@ -109,8 +109,14 @@
 </nav>
 <include file = "Base/dialog_login" />
 
-<script>
+<script>    
 
+
+    $(".navbar_our_sayings").click(function(){
+
+        if(!has_login()) return false;
+    })
+    
     $(document).ready(function(){
         var user_id = $.cookie('id');
         var url = "{:U('LogIn/EditProfile')}"

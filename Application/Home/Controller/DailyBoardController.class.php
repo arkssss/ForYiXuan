@@ -23,7 +23,7 @@ class DailyBoardController extends Controller {
     /**
      * 显示的基本配置
      */
-    protected $show_all_visible_length = 10;
+    protected $show_all_visible_length = 30;
 
 
     /**
