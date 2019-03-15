@@ -125,7 +125,7 @@ $(".illsion").click(function(){
 $(".tag_remove").click(function(){
 
 	//不是艺璇则退出
-	if(!is_yixuan()) return;
+	if(!has_login()) return;
 	var button_name = $(this).attr('name');
 
 	var type = $(this).attr('type');
@@ -172,7 +172,7 @@ $(".tag_remove").click(function(){
 $(".new_tag_submit").click(function(){
 
 	//不是艺璇则退出
-	if(!is_yixuan()) return;
+	if(!has_login()) return;
 
 	var name = $("#new_tag_name").val();
 	var des  = $("#new_tag_des").val();
@@ -207,7 +207,7 @@ $(".new_tag_submit").click(function(){
 $(".tag_update").click(function(){
 
 		//是不是艺璇的验证判断
-		if(!is_yixuan()) return false;
+		if(!has_login()) return false;
 
 		var button_name = $(this).attr('name');
 		var button_type = $(this).attr('type');
@@ -246,7 +246,7 @@ $(".tag_update").click(function(){
 			function(data) {
 				layer.alert(data, {skin: 'layui-layer-lan', title :'小舟说:'});
 				location.reload();
-
+				
 			}
 		)
 

@@ -1,7 +1,41 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Upload;
+use Home\Model\DailyBoardModel;
+use Home\Model\LogInModel;
 class DailyBoardController extends Controller {
+
+    
+    /**
+     * 提取数据
+     */
+    protected $all_saying = array();
+    protected $one_saying = array();
+
+
+    /**
+     * 数据库操作层
+     */
+    protected $my_model;
+    protected $user_model;
+
+    /**
+     * 显示的基本配置
+     */
+    protected $show_all_visible_length = 10;
+
+
+    /**
+     * 构造函数
+     */
+    public function __construct(){
+
+        $this->my_model = D('DailyBoard');
+        $this->user_model = D('LogIn'); //处理用户信息
+        parent::__construct(); 
+    }
+
     public function index(){
         echo "hello this is ark's Daily Board";
   }
@@ -15,43 +49,149 @@ class DailyBoardController extends Controller {
    }
 
    /**
-    * 图片上传
+    * 验证id
     */
-   public function upload(){
+   protected function validate_id(){
 
-    // $return_data = [
+        $cookie_id = intval(I("cookie.id"),0);
 
-    //     "errno" => 0,
-    
-    //     "data" => [
-    //         "#",
-    //     ]
-    //     ];
-        
-    // echo json_decode($return_data);
-    $imgInfo = $_FILES['myFileName'];
-    var_dump($imgInfo);
-    // 图片名称
-    $oldname = $imgInfo['name'];
-    // 临时文件
-    $tmp_name = $imgInfo['tmp_name'];
-    // 错误信息
-    $error = $imgInfo['error'];
-    // 分割字符串，得到数组。
-    $temp = explode(".",$oldname);
-    // 用时间戳 + 文件后缀 重命名文件。
-    $newname = time().".".$temp[count($temp)-1];
-    // 在服务上移动图片到指定目录。
-    move_uploaded_file($tmp_name,__ROOT__."/".$newname);
-    // 返回图片路径，类似ajax的响应流程。
-    $ret = [
-        'error' => $error,
-        'data' => [
-            __ROOT__."/".$newname
-        ]
-    ];
-    echo json_encode($ret);
+        if(!$cookie_id) {
+            echo "you don't have access!";
+            exit();
+        }
+        return $cookie_id;
+
+    }
+
+   /**
+    * 显示所有
+    */
+   public function ShowAll(){
+
+
+    $this->all_saying = $this->my_model->get_all_saying();
+    //处理数据
+    $this->deal_all_saying();
+
+
+    //注入变量
+    $this->assign("all_saying", $this->all_saying);
+    $this->display("DailyBoard/ShowAll");
+
+   }
+
+   /**
+    * 显示一条, 一般为接受的post 请求为留言 id
+    */
+   public function ShowOne(){
+
+
+
+        $user_id = $this->validate_id();  
+        $author_info = $this->user_model->get_true_user_info($user_id);
+
+        $id = I('get.id');
+        $the_saying = $this->my_model->get_one_saying($id);
+
+        $this->assign("author_info", $author_info);
+        $this->assign("the_saying", $the_saying);
+
+        $this->display("DailyBoard/ShowOne");
+
+
 
 
    }
+
+
+
+   /**
+    * 添加留言
+    */
+   public function add(){
+
+        //防止直接进入页面
+        if(!IS_POST) {echo "you don't have access"; exit();}
+        $author = $this->validate_id();
+
+        //这里不能用I过滤
+        $html = $_POST['html'];
+        $text = $_POST['text'];
+
+        //reader = 0表示面向所有读者, 这一块以后再做
+        $reader = 0;
+
+        echo $this->my_model->true_add($author, $html, $text, $reader);
+
+   }
+
+   /**
+    * 上传图片
+    */
+   public function upload(){
+    // 实例化上传类s
+    $upload = new Upload(C("UPLOAD_DAILY_BOARD"));
+
+    $info   =   $upload->uploadOne($_FILES['photo1']);
+
+    //返回参数
+    $ret = [
+        "errno" => 0,
+        "data"  => [
+        ]
+    ];
+    if(!$info) {// 上传错误提示错误信息
+        echo $this->error($upload->getError());
+        $ret['errno'] = 1;
+        // $ret
+    }else{// 上传成功 获取上传文件信息
+        $ret['data'] = __ROOT__."/Public/Uploads/".$info['savepath']."/".$info['savename'];
+    }
+    echo json_encode($ret);
+
+   }
+
+
+
+   // ---- 数据处理层
+   protected function deal_all_saying(){    
+
+        $all_author = array();
+
+        foreach ($this->all_saying as $key => &$value) {
+
+            //收集所有的作者信息
+            if(!in_array($value['author'], $all_author)) {array_push($all_author, $all_author['author']);}
+
+            // 处理文章长度大于10, 则截取为前十
+            if(strlen($value['text']) > $this->show_all_visible_length){
+                $value['text'] = substr($value['text'], 0, $this->show_all_visible_length-1) . "......";
+
+            }            
+            
+        }
+
+        $authors = $this->user_model->get_true_all_user_by_ids($all_author);
+        $change_key_authors = array();
+        //整理一下结果, 换key值
+        foreach ($authors as $key => $val) {
+            $change_key_authors[$val['id']] = $val;
+        }
+
+        foreach ($this->all_saying as $key => &$item) {
+
+            $item['face_img'] = $change_key_authors[$item['author']]['face_img'];
+            $item['author_nickname'] = $change_key_authors[$item['author']]['nickname'];
+            $item['one_saying_url'] = U("DailyBoard/ShowOne", 'id='.$item['id'].'');
+            
+        }
+
+
+
+
+
+
+   }
+
+
 }

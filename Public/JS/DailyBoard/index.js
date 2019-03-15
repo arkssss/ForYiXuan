@@ -1,42 +1,5 @@
-<include file="Base/head"/>
-</head>
-<style type="text/CSS">
-
-.Edit_frame{
-    margin-top : 100px;
-}
-.Edit_item{
-    margin-bottom: 40px;
-}
-</style>
-
-
-<body>
-<include file="Base/NavBar_v2" />
-<div class="Edit_frame container">
-    <h2 class="text-info text-center Edit_item">写下今天想对彼此说的话吧</h2>
-    <!-- <div class="Edit_item">
-        <label for="toppic">主题: </label>
-        <input type="text" class="form-control" id="toppic" placeholder="留言的主题, ">
-    </div>   -->
-    <div id="editor" class="Edit_item">
-    </div>
-    <button id="submit" class="btn btn-lg btn-info center-block Edit_item">提交</button>
-</div>
-<include file="Base/foot"/>
-<style type="text/CSS">
-._foot{
-    bottom: 0;
-}
-</style>
-</body>
-<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-<script type="text/javascript" src="__PLUGIN__/wangEditor/release/wangEditor.min.js"></script>
-<!-- <import type='js'  file = "JS/DailyBoard/index"/>	 -->
-<script>
 // 编辑框初始js 
 $(document).ready(function(){
-
     var E = window.wangEditor
     var editor = new E('#editor')
     // 或者 var editor = new E( document.getElementById('editor') )
@@ -63,7 +26,7 @@ $(document).ready(function(){
         'emoticon',  // 表情
         'image',  // 插入图片
         'table',  // 表格
-        // 'video',  // 插入视频
+        'video',  // 插入视频
         //'code',  // 插入代码
         // 'undo',  // 撤销
         // 'redo'  // 重复
@@ -89,39 +52,11 @@ $(document).ready(function(){
             console.log("上传超时");
         }
     }
+
     editor.create()
-
-        $("#submit").click(function(){
-
-        //是不是艺璇的验证判断
-		if(!has_login()) return false;       
-
-        var edit_html = editor.txt.html();
-        var edit_text = editor.txt.text();
-        var theurl = "{:U('DailyBoard/add')}";
-        alert(edit_html);
-        if(!edit_text) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
-
-        $.post(
-            theurl,
-            {	
-                'html'  : edit_html,
-                'text'  : edit_text,
-            },
-            function(data) {
-                alert(data, {skin: 'layui-layer-lan', title :'小舟说:'});
-                // location.reload();
-            }
-        )
-
-    })
     
 })
     
 
 
 
-</script>
-
-
-</html>

@@ -1,0 +1,87 @@
+<div class="modal fade" id="myModal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_login" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel_login">你是小任任吗? 小舟和小任的秘密其他人可是看不了的哦</h4>
+                </div>
+                <div class="modal-body">
+    
+                        <form class="bs-example bs-example-form" role="form">
+                                <div class="from-group">
+                                    <label for="username">甜蜜口令: </label>
+                                    <input type="text" class="form-control" id="username" placeholder="小任任第一次登陆口令就是你的生日哦">
+                                </div>
+                                
+                                <div class="from-group">
+                                        <label for="password">密码: </label>
+                                        <input type="text" class="form-control" id="password" placeholder="小任任的密码, 忘记了就去问小舟吧">
+                                </div>
+                        </form>
+    
+                </div>
+
+                <!-- <div class="wrong_answer alert alert-danger" alert_time = '0' style="display:none">
+                        错误 ❌! 再给你一次机会
+                </div> -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">我就看看</button>
+                    <button type="button" class="btn btn-primary" id='submit_login'>小舟我来啦~~</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+    <script>
+        
+        //登陆按钮
+        $("#submit_login").click(function(){
+
+            var username = $("#username").val();
+            var password = $("#password").val();
+            
+            var url = "{:U('LogIn/login')}";
+
+            $.post(
+                url,
+                {	
+                    'username' : username,
+                    'password' : password
+                },
+                function(data) {
+                    // location.reload();
+                    var obj = JSON.parse(data);
+                    if(obj.status == "1"){
+                        //登陆成功
+                        // set_user_cookie(obj['data']);
+                        C_set_user_cookies(obj['data'])
+                        layer.alert(obj['msg'], {skin: 'layui-layer-lan', title :'小舟说:'},
+                            function(){
+                                //关闭登陆model
+                                $('#myModal_login').modal('toggle');
+                                location.reload();
+                            }
+                        );
+                    }else{
+                        //登陆失败
+                        layer.alert(obj['msg'], {skin: 'layui-layer-lan', title :'小舟说:'});
+                    }
+                }
+            )
+        })  
+
+        // needs_log_model为false, 则为不需要跳出登陆框
+        function has_login(needs_log_model = true){
+
+            if($.cookie("id")){
+                //已经登陆了
+                return true;
+            }else{
+                //还没登陆
+                if(needs_log_model)  $('#myModal_login').modal('toggle');
+                return false;
+            }
+        }
+    
+    </script>

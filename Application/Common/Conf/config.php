@@ -4,6 +4,9 @@ return array(
 	'URL_ROUTER_ON'   => true, //开启路由
 	'URL_MODEL'             =>  1, 
 
+	// 开启session
+	'SESSION_AUTO_START' => true, //是否开启session
+
 	// 模版的访问路径规则
 	'TMPL_PARSE_STRING'  =>array(	
 		'__PUBLIC__' => '/Common', // 更改默认的/Public 替换规则
@@ -27,7 +30,7 @@ return array(
 	'DB_PORT'   =>  3306, // 端口
 	'DB_PARAMS' =>  array(), // 数据库连接参数
 	'DB_PREFIX' => 'think_', // 数据库表前缀 
-	'DB_CHARSET'=> 'utf8', // 字符集
+	'DB_CHARSET'=> 'utf8mb4', // 字符集  utf8mb4可以支持emoji的存入
 	'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
 
 

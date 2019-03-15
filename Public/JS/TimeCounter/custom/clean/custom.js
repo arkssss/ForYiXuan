@@ -24,7 +24,7 @@
     }
 
     $(document).ready(function () {
-
+        
         var $defaulteCounter = $("#counter");
         var $defaulteCounter2 = $("#counter2");
         var $defaulteCounter3 = $("#counter3");
@@ -106,11 +106,13 @@ function Date_to_string(date){
  * @param {*} Date2  string 
  */
 function DateDifference(Date1,Date2) { //Date1和Date2是2017-07-10格式  
-    var sDate, newDate1, newDate2, Days
+    var newDate1, newDate2, Days
     aDate = Date1.split("-");
-    newDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]); //转换为07-10-2017格式  
+    //newDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]); //转换为07-10-2017格式  
+    newDate1 = new Date(Date1.replace(/-/g, "/")); //兼容safair
     aDate = Date2.split("-");
-    newDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+    //newDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+    newDate2 = new Date(Date2.replace(/-/g, "/"));
     Days = parseInt(Math.abs(newDate1 - newDate2) / 1000 / 60 / 60 / 24); //把差的毫秒数转换为天数  
     return Days;
 }

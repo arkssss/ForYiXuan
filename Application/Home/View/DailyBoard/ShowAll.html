@@ -1,0 +1,86 @@
+<include file="Base/head"/>
+<import type='css'  file="CSS/DailyBoard/ShowAll"/>
+<import type='js'  file="JS/DailyBoard/ShowAll"/>
+</head>
+<style type="text/CSS">
+.my_face{
+
+		width: 150px;
+        height: 150px;
+
+}
+body{
+	position: relative;
+	height: 1000px;
+}
+</style>
+<body>
+    <!-- 导航条 -->
+    <include file="Base/NavBar_v2" />
+
+    <h2 class="text-info text-center my_title">甜甜留言板</h2>
+
+	<section id="cd-timeline" class="cd-container">
+
+        <volist name="all_saying" id="the_saying">
+
+                <div class="cd-timeline-block">
+
+                        <div class="cd-timeline-img">
+                            <img src="{$the_saying.face_img}" class="img-circle my_face" alt="Picture">
+                        </div>
+            
+                        <div class="cd-timeline-content">
+                            <h2>{$the_saying.author_nickname}</h2>
+                            <p>{$the_saying.text}</p>
+                            <a href="{$the_saying.one_saying_url}" class="cd-read-more">阅读更多</a>
+                            <span class="cd-date">{$the_saying.time}</span>
+                        </div> 
+                    </div> 
+            
+        </volist>
+
+		<!-- <div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-picture">
+				<img src="__PHOTO__/DailyBoard/cd-icon-picture.svg" alt="Picture">
+			</div>
+
+			<div class="cd-timeline-content">
+				<h2>html5时间表 1</h2>
+				<p>jQuery 团队在官博中再次提醒用户，jQuery  </p>
+				<a href="#" class="cd-read-more">阅读更多</a>
+				<span class="cd-date">Jan 14</span>
+			</div> 
+        </div> 
+         -->
+        
+
+	</section> <!-- cd-timeline -->
+	
+<script>
+$(function(){
+	var $timeline_block = $('.cd-timeline-block');
+	//hide timeline blocks which are outside the viewport
+	$timeline_block.each(function(){
+		if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
+			$(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+		}
+	});
+	//on scolling, show/animate timeline blocks when enter the viewport
+	$(window).on('scroll', function(){
+		$timeline_block.each(function(){
+			if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
+				$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+			}
+		});
+	});
+});
+</script>
+<style type='text/CSS'>
+._foot{
+	bottom: 0;
+}
+</style>
+<include file="Base/foot"/>
+</body>
+</html>

@@ -3,7 +3,7 @@
     background-color: #020302;
 } */
 .NavBar_v2{
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
 
 }
@@ -38,7 +38,7 @@
 
 </style>
 
-<nav class="navbar navbar-default navbar-fixed-top row navbar-inverse" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top row navbar-inverse" role="navigation">   
     <!-- <div class="pull-left col-lg-2">
         <h2 class="text-info">小任&小方</h2>
     </div> -->
@@ -75,9 +75,60 @@
                 </li>
                 <li><a href="{:U('PhotoWall/index')}">照片墙</a></li>
                 <li><a href="{:U('beginning/index')}">想对你说</a></li>
+                <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+                            留言板<span class="text-danger">(NEW)</span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('DailyBoard/ShowAll')}">我们的留言</a></li>
+                            <li><a href="{:U('DailyBoard/Edit')}">发布留言</a></li>
+                        </ul>
+                </li>
                 <li><a href="{:U('Card/index')}">爱心卡片</a></li>
+                
+
+                
+                <li id="navbar_not_login" style="display : none" data-target="#myModal_login" data-toggle="modal"><a href="javascript:void(0)">登陆<span class="text-danger">(NEW)</span></a></li>
+                
+                <li id="navbar_has_login" style="display : none" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+                            <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                            <span class="navbar_username"></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="navbar_personal_info_url" href="javascript:void(0)">个人中心</a></li>
+                            <li><a href="{:U('DailyBoard/Edit')}">退出登陆</a></li>
+                        </ul>
+                </li>
+            
+            
             </ul>
         </div>
-
     </div>
 </nav>
+<include file = "Base/dialog_login" />
+
+<script>
+
+    $(document).ready(function(){
+        var user_id = $.cookie('id');
+        var url = "{:U('LogIn/EditProfile')}"
+        if(has_login(false)){
+            //已经登陆的设置
+            $("#navbar_has_login").css('display','block');
+            //设置nickname
+            $("#navbar_has_login .navbar_username").html($.cookie("nickname"))
+            $("#navbar_has_login .navbar_personal_info_url").attr("href",url);   
+
+
+
+        }else{
+            //未登陆的设置
+            $("#navbar_not_login").css('display','block');
+        }
+    })
+
+</script>
+
+
