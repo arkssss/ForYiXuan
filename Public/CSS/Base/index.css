@@ -1,0 +1,18 @@
+/* 全局CSS */
+body{
+
+    /* min-height: 900px !important; */
+    /* font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.42857143 !; */
+
+}
+
+@media screen and (max-width: 600px){
+
+body{
+
+    /* min-height: 800px !important */
+}
+
+}

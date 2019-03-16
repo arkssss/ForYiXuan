@@ -144,9 +144,8 @@ class LogInController extends Controller {
         }else{// 上传成功 获取上传文件信息
                 // echo $file['savepath'].$file['savename'];
             foreach($info as $file){
-                $ret['result'] = __ROOT__."/Public/Uploads/".$file['savepath'].$file['savename'];
+                $ret['result'] = C("TMPL_PARSE_STRING.__Uploads__")."/".$file['savepath'].$file['savename'];
             }
-
         }
 
         echo json_encode($ret);

@@ -16,8 +16,8 @@ user_cookie = ['birthday', 'email','face_img', 'id', 'loving', 'nickname','regis
 
         Object.keys(user).forEach(function(key){
 
-            // $.cookie()
-            $.cookie(key, user[key],  {path:'/'}, { expires : 5 })
+            // $.cookie() 默认的cookie 是浏览器关闭之后就立即清除, 是因为调用的格式不对
+            $.cookie(key, user[key],  {expires : 5, path:'/'})
        });
     
     }
@@ -34,7 +34,7 @@ user_cookie = ['birthday', 'email','face_img', 'id', 'loving', 'nickname','regis
         for(var i = 0; i < len ; i++){
             var new_value;
             new_value = update_user[user_cookie[i]] ? update_user[user_cookie[i]] : $.cookie(user_cookie[i]);
-            $.cookie(user_cookie[i], new_value,  {path:'/'}, { expires : 5 })
+            $.cookie(user_cookie[i], new_value,  {expires : 5, path:'/'})
         }
     }
 

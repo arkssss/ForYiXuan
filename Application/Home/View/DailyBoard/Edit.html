@@ -8,6 +8,10 @@
 .Edit_item{
     margin-bottom: 40px;
 }
+
+.w-e-text-container{
+   height: 500px !important;  /* !important是重点，因为原div是行内样式设置的高度300px */
+}
 </style>
 
 
@@ -15,24 +19,13 @@
 <include file="Base/NavBar_v2" />
 <div class="Edit_frame container">
     <h2 class="text-info text-center Edit_item">写下今天想对彼此说的话吧</h2>
-    <!-- <div class="Edit_item">
-        <label for="toppic">主题: </label>
-        <input type="text" class="form-control" id="toppic" placeholder="留言的主题, ">
-    </div>   -->
-    <div id="editor" class="Edit_item">
+    <div id="editor" class="Edit_item"> 
     </div>
     <button id="submit" class="btn btn-lg btn-info center-block Edit_item">提交</button>
 </div>
-<include file="Base/foot"/>
-<style type="text/CSS">
-._foot{
-    bottom: 0;
-}
-</style>
 </body>
 <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
 <script type="text/javascript" src="__PLUGIN__/wangEditor/release/wangEditor.min.js"></script>
-<!-- <import type='js'  file = "JS/DailyBoard/index"/>	 -->
 <script>
 // 编辑框初始js 
 $(document).ready(function(){
@@ -44,7 +37,7 @@ $(document).ready(function(){
     editor.customConfig.uploadImgServer = '{:U("DailyBoard/upload")}';  // 上传图片到服务器 上传tab
     editor.customConfig.uploadFileName = 'myFileName';
     editor.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错
-    
+    editor.customConfig.zIndex = 100  // 设置 editor zIndex
     //表格的菜单定义
     editor.customConfig.menus = [
         'head',  // 标题

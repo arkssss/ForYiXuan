@@ -132,20 +132,24 @@ class DailyBoardController extends Controller {
     // 实例化上传类s
     $upload = new Upload(C("UPLOAD_DAILY_BOARD"));
 
-    $info   =   $upload->uploadOne($_FILES['photo1']);
+    $info   =   $upload->upload();
 
     //返回参数
     $ret = [
         "errno" => 0,
         "data"  => [
-        ]
+            
+        ],
     ];
     if(!$info) {// 上传错误提示错误信息
         echo $this->error($upload->getError());
         $ret['errno'] = 1;
         // $ret
     }else{// 上传成功 获取上传文件信息
-        $ret['data'] = __ROOT__."/Public/Uploads/".$info['savepath']."/".$info['savename'];
+        foreach($info as $file){
+            array_push($ret['data'],C("TMPL_PARSE_STRING.__Uploads__")."/".$file['savepath'].$file['savename']);
+        }
+        
     }
     echo json_encode($ret);
 
