@@ -61,11 +61,17 @@ class DailyBoardModel extends Model {
 
         $res = M($this->TrueTable)->add($data);
 
+        $ret = [];
+
         if($res){
-            return C("AJAX_RETURN_TEXT.SAVE_DAILYBOARD_SUEECSS");
+            $ret['status'] = 1;
+            $ret['msg'] = C("AJAX_RETURN_TEXT.SAVE_DAILYBOARD_SUEECSS");
         }else{
-            return C("AJAX_RETURN_TEXT.SAVE_FAIL");
+            $ret['status'] = 0;
+            $ret['msg'] =  C("AJAX_RETURN_TEXT.SAVE_FAIL");
         }
+
+        return $ret;
     
     }
 

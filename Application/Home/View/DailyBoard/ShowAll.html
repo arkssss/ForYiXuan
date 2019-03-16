@@ -31,8 +31,8 @@ body{
                         </div>
             
                         <div class="cd-timeline-content">
-                            <h2>{$the_saying.author_nickname}</h2>
-                            <p>{$the_saying.text}</p>
+                            <h2>{$the_saying.text}</h2>
+                            <p>{$the_saying.author_nickname}</p>
                             <a href="{$the_saying.one_saying_url}" class="cd-read-more">阅读更多</a>
                             <span class="cd-date">{$the_saying.time}</span>
                         </div> 
@@ -57,7 +57,7 @@ body{
 
 	</section> <!-- cd-timeline -->
 	
-<script>
+<script>	
 $(function(){
 	var $timeline_block = $('.cd-timeline-block');
 	//hide timeline blocks which are outside the viewport

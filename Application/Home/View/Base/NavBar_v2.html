@@ -104,7 +104,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="navbar_personal_info_url" href="javascript:void(0)">个人中心</a></li>
-                            <li><a href="{:U('DailyBoard/Edit')}">退出登陆</a></li>
+                            <li><a class="navbar_logout">退出登陆</a></li>
                         </ul>
                 </li>
             
@@ -121,6 +121,13 @@
     $(".navbar_our_sayings").click(function(){
 
         if(!has_login()) return false;
+    })
+
+    $(".navbar_logout").click(function(){   
+        
+        C_remove_user_cookies();
+        url = "{:U('Beginning/index')}";
+        location.href = url;    
     })
     
     $(document).ready(function(){

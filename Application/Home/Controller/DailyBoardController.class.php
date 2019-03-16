@@ -23,7 +23,7 @@ class DailyBoardController extends Controller {
     /**
      * 显示的基本配置
      */
-    protected $show_all_visible_length = 30;
+    protected $show_all_visible_length = 12;
 
 
     /**
@@ -111,7 +111,7 @@ class DailyBoardController extends Controller {
    public function add(){
 
         //防止直接进入页面
-        if(!IS_POST) {echo "you don't have access"; exit();}
+        if(!IS_POST) {echo "you don't have access";  $this->redirect('Beginning/index');  exit();}
         $author = $this->validate_id();
 
         //这里不能用I过滤
@@ -121,7 +121,7 @@ class DailyBoardController extends Controller {
         //reader = 0表示面向所有读者, 这一块以后再做
         $reader = 0;
 
-        echo $this->my_model->true_add($author, $html, $text, $reader);
+        echo json_encode($this->my_model->true_add($author, $html, $text, $reader));
 
    }
 
@@ -168,8 +168,8 @@ class DailyBoardController extends Controller {
             if(!in_array($value['author'], $all_author)) {array_push($all_author, $all_author['author']);}
 
             // 处理文章长度大于10, 则截取为前十
-            if(strlen($value['text']) > $this->show_all_visible_length){
-                $value['text'] = substr($value['text'], 0, $this->show_all_visible_length-1) . "......";
+            if(mb_strlen($value['text'],"utf-8") > $this->show_all_visible_length){
+                $value['text'] = mb_substr($value['text'], 0, $this->show_all_visible_length-1, "utf-8") . "......";
 
             }            
             

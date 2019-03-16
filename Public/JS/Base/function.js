@@ -39,3 +39,14 @@ user_cookie = ['birthday', 'email','face_img', 'id', 'loving', 'nickname','regis
     }
 
  }
+
+ /**
+  * 删除关于用户的cookie
+  */
+ function C_remove_user_cookies(){
+        var len = user_cookie.length;
+        for(var i = 0; i < len ; i++){
+            // 如果作用域为全局, 则删除的时候需要在后面加路径
+            $.removeCookie(user_cookie[i], { path: '/' });
+        }
+ }
