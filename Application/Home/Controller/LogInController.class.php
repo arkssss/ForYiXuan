@@ -49,12 +49,16 @@ class LogInController extends Controller {
         $id = $this->validate_id();
         $update_date = I("post.data");
         $img_data    = I('post.img_data');
-        //如果有, 则剪裁图片
-        if(!empty($img_data)){
-            // 图像处理  
-            // to be continue ...
-            // $this->resize_image($update_date['face_img'], $img_data);
+        if ($update_date['face_img']) {
+            $pieces = explode("/",$update_date['face_img']);
+            $update_date['face_img'] = $pieces[count($pieces)-1];
         }
+        //如果有, 则剪裁图片
+        // if(!empty($img_data)){
+        //     // 图像处理  
+        //     // to be continue ...
+        //     // $this->resize_image($update_date['face_img'], $img_data);
+        // }
 
         echo json_encode($this->my_model->update_user_info($id, $update_date));
 
@@ -124,7 +128,7 @@ class LogInController extends Controller {
    /**
     * 上传头像图片
     */
-    public function upload(){
+    public function upload(){   
         // 实例化上传类s
         $upload = new Upload(C("UPLOAD_USER_FACE"));
     
