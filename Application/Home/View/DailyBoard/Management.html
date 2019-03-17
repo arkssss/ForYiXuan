@@ -47,9 +47,9 @@
     <div class="management_list_group">
 
         <volist name="ones_all_saying" id="the_saying"> 
-            <div href="#" class="list-group-item row">
+            <div href="#" class="list-group-item row" id="saying_id_{$the_saying.id}">
                 <p class="col-lg-2 col-md-2 col-xs-8">{$the_saying.time}</p>
-                <button onclick='del_saying("{$the_saying.id}")' class="btn btn-danger col-lg-1 col-md-1 col-xs-4 pull-right">删除</button>
+                <button onclick='del_saying("{$the_saying.id}")' id="{$the_saying.id}" class="btn btn-danger col-lg-1 col-md-1 col-xs-4 pull-right">删除</button>
                 <a href="{$the_saying.url}" class="col-lg-4 col-md-4 col-xs-8">{$the_saying.text}</a>
             </div>
         </volist>
@@ -63,26 +63,39 @@
 //删除
 function del_saying(id){
 
-    var url = "{:U('DailyBoard/del')}";
-    $.post(
-        url,
-        {
-            'saying_id' : id
-        },
-        function(data){
-            var obj = JSON.parse(data);
-            console.log(obj);
-            layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'}, function(index){
-                if(obj.status){
-                    //删除成功
-                    location.reload();
-                }
-                layer.close(index)
 
-            })
+    layer.confirm('小任任确定要删除这条生活瞬间吗?', {
+		btn: ['是的, 我不想给老猪哥看了','我再冷静下'], //按钮
+		skin: 'layui-layer-lan', 
+		title :'小舟说:' 
+		}, 
+		function(index){
+			layer.close(index);
+			var my_loading = layer.load(1, {
+				shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});	
+            var url = "{:U('DailyBoard/del')}";
+            $.post(
+                url,
+                {
+                    'saying_id' : id
+                },
+                function(data){
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'}, function(index){
+                        if(obj.status){
+                            //删除成功
+                            $("#saying_id_"+id+"").css('display','none');
+                        }
+                        layer.close(index)
+                        layer.close(my_loading)
+                    })
+                }   
 
-        }   
-
+            )
+			
+        }, 
     )
 
 

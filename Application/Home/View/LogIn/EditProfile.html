@@ -202,6 +202,9 @@
             }
             if(!$.isEmptyObject(pass_data)){
                 //有需要更新的
+                    $(this).text("小舟拼命保存中"); 
+                    $(this).attr("disabled", "disabled");
+
                     var url = "{:U('LogIn/UpdateProfile')}"
                     // console.log(pass_data);
                     $.post( 
@@ -217,7 +220,12 @@
                                 //更新成功, 更新cookie
                                 C_update_user_cookies(pass_data);
                             }
-                            layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'});
+                            layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'},function(index){
+                                $("#submit").text("小舟快帮我保存")
+                                $("#submit").removeAttr("disabled")
+                                layer.close(index);
+                                location.reload();
+                            });
 
                         }
                     )
