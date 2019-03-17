@@ -1,0 +1,98 @@
+<!-- 管理我的发布 -->
+<include file="Base/head"/>
+</head>
+<style type="text/CSS">
+.management_header{
+    margin-top: 150px; 
+}
+.management_list_group .list-group-item{
+    margin: 20px 0 !important;
+    height: 50px;
+}
+#management_myface{
+    width: 140px;
+    height: 140px;
+}
+.management_title{
+    padding-top: 15px;
+}
+
+@media screen and (max-width: 600px){
+    .management_list_group .list-group-item{
+    margin: 20px 0 !important;
+    height: 90px;
+}
+
+
+}
+
+</style>
+<body>
+
+    <include file="Base/NavBar_v2" />
+
+    <div class="container">
+
+    <div class="page-header management_header row">
+            <div class="col-lg-4">
+                <img src="__Uploads__/UserFace/fangzhou.png" id="management_myface" class="center-block img-circle">
+                <br>
+                <h4 class="text-center">小舟</h4>
+            </div>
+             <div class="col-lg-4 management_title">
+                 <h2 class="text-center">我的留言</h2>
+            </div>
+    </div>
+    
+    <div class="management_list_group">
+
+        <volist name="ones_all_saying" id="the_saying"> 
+            <div href="#" class="list-group-item row">
+                <p class="col-lg-2 col-md-2 col-xs-8">{$the_saying.time}</p>
+                <button onclick='del_saying("{$the_saying.id}")' class="btn btn-danger col-lg-1 col-md-1 col-xs-4 pull-right">删除</button>
+                <a href="{$the_saying.url}" class="col-lg-4 col-md-4 col-xs-8">{$the_saying.text}</a>
+            </div>
+        </volist>
+            <!-- <a href="#" class="list-group-item">24*7 支持</a>
+            <a href="#" class="list-group-item">免费 Window 空间托管</a>
+            <a href="#" class="list-group-item">图像的数量</a>
+            <a href="#" class="list-group-item">每年更新成本</a> -->
+            
+    </div>
+
+    </div>
+</body>
+<script>
+//删除
+function del_saying(id){
+
+    var url = "{:U('DailyBoard/del')}";
+    $.post(
+        url,
+        {
+            'saying_id' : id
+        },
+        function(data){
+            var obj = JSON.parse(data);
+            console.log(obj);
+            layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'}, function(index){
+                if(obj.status){
+                    //删除成功
+                    location.reload();
+                }
+                layer.close(index)
+
+            })
+
+        }   
+
+    )
+
+
+
+}
+
+
+</script>
+
+</html>

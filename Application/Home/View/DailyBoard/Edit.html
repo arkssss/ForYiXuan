@@ -18,10 +18,21 @@
 <body>
 <include file="Base/NavBar_v2" />
 <div class="Edit_frame container">
-    <h2 class="text-info text-center Edit_item">写下今天想对彼此说的话吧</h2>
+
+    <div class="edit_without_id" style="display:none">
+        <h2 class="text-info text-center Edit_item">写下今天想跟小舟分享的瞬间吧~~~</h2>
+    </div>
+
+    <div class="edit_with_id"  style="display:none">
+        <h2 class="text-center">{$ones_user.nickname}</h2>
+        <p  class="text-info text-center">于 {$ones_saying.time}</p>
+    </div>
+
     <div id="editor" class="Edit_item"> 
     </div>
-    <button id="submit" class="btn btn-lg btn-info center-block Edit_item">提交</button>
+
+
+    <button id="submit" class="btn btn-lg btn-info center-block Edit_item">我要发布啦~</button>
 </div>
 </body>
 <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
@@ -30,6 +41,14 @@
 // 编辑框初始js 
 $(document).ready(function(){
 
+    var saying_id = '{$ones_saying.id}';
+
+    if(saying_id){
+        $(".edit_with_id").css('display','block');
+    }else{
+        $(".edit_without_id").css('display','block');
+    }
+
     var E = window.wangEditor
     var editor = new E('#editor')
     // 或者 var editor = new E( document.getElementById('editor') )
@@ -37,7 +56,7 @@ $(document).ready(function(){
     editor.customConfig.uploadImgServer = '{:U("DailyBoard/upload")}';  // 上传图片到服务器 上传tab
     editor.customConfig.uploadFileName = 'myFileName';
     editor.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错
-    editor.customConfig.zIndex = 100  // 设置 editor zIndex
+    editor.customConfig.zIndex = 100;  // 设置 editor zIndex
     //表格的菜单定义
     editor.customConfig.menus = [
         'head',  // 标题
@@ -84,38 +103,50 @@ $(document).ready(function(){
     }
     editor.create()
 
-        $("#submit").click(function(){
+    //初始化的内容
+    editor.txt.html('{$ones_saying.html}')
 
-        //是不是艺璇的验证判断
-		if(!has_login()) return false;       
 
-        var edit_html = editor.txt.html();
-        var edit_text = editor.txt.text();
-        var theurl = "{:U('DailyBoard/add')}";
-        if(!edit_text) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+    //点击事件
+$("#submit").click(function(){
+    
+    //是不是艺璇的验证判断
+    if(!has_login()) return false;       
+        
+    var edit_html = editor.txt.html();
+    var edit_text = editor.txt.text();
+    var theurl = "{:U('DailyBoard/add')}";
+    if(saying_id && edit_html == '{$ones_saying.html}') {layer.alert("小任任你你没有改动啦~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+    if(!edit_text) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
 
-        $.post(
-            theurl,
-            {	
-                'html'  : edit_html,
-                'text'  : edit_text,
-            },
-            function(data) {
-                var obj = JSON.parse(data);
-                layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'},function(){
+    $(this).text("小舟拼命处理中...");
+    $(this).attr("disabled", "disabled");
 
-                    if(obj.status) {
-                        //发布成功
-                        url = "{:U('DailyBoard/ShowAll')}";
-                        location.href = url;
-                    }
+    $.post(
+        theurl,
+        {	
+            'html'  : edit_html,
+            'text'  : edit_text,
+            'saying_id' : saying_id
+        },
+        function(data) {
+            var obj = JSON.parse(data);
+            layer.alert(obj.msg, {skin: 'layui-layer-lan', title :'小舟说:'},function(index){
+                 $("#submit").text("我要发布啦~");
+                 $("#submit").removeAttr("disabled");
+                if(obj.status) {
+                    //发布成功
+                    url = "{:U('DailyBoard/ShowAll')}";
+                    location.href = url;
+                }
+                 layer.close(index);
 
-                });
-                // location.reload();
-            }
-        )
+            });
+            // location.reload();
+        }
+    )
 
-    })
+})
     
 })
     

@@ -34,7 +34,11 @@ return array(
 
 		//密码更改
 		'PASSWORD_CHANGE_SUCCESS' => "小任任密码更改成功啦, 抱一个~",
-		'PASSWORD_CHANGE_THE_SAME' => "小任任你的新密码和旧密码一样啦, 改屁屁~"
+		'PASSWORD_CHANGE_THE_SAME' => "小任任你的新密码和旧密码一样啦, 改屁屁~",
+
+
+		//删除
+		'SAYING_DEL_SUCCESS' => "小任任你删除成功啦, 到底是什么怕老猪哥看到呢",
 	) ,
 
 
