@@ -51,7 +51,7 @@ class DailyBoardController extends Controller {
 
     //编辑操作
     if($ones_saying) {
-        $user = $this->user_model->get_user_info($user_id);
+        $user = $this->user_model->get_true_user_info($user_id);
         $this->assign("ones_user", $user);
         $this->assign("ones_saying",$ones_saying);
     }
@@ -106,9 +106,9 @@ class DailyBoardController extends Controller {
 
         $this->ones_all_saying = $this->my_model->get_ones_all_saying_textonly($user_id);
         $this->deal_ones_all_saying(); 
-
+        $user  = $this->user_model->get_true_user_info($user_id);
         // var_dump($this->ones_all_saying);
-
+        $this->assign("user", $user);
         $this->assign("ones_all_saying", $this->ones_all_saying);
         $this->display("DailyBoard/Management");
     }
