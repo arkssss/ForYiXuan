@@ -117,7 +117,7 @@ $("#submit").click(function(){
     var edit_text = editor.txt.text();
     var theurl = "{:U('DailyBoard/add')}";
     if(saying_id && edit_html == '{$ones_saying.html}') {layer.alert("小任任你你没有改动啦~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
-    if(!edit_text) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+    if(!edit_text && !edit_html.match('img')) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
 
     $(this).text("小舟拼命处理中...");
     $(this).attr("disabled", "disabled");

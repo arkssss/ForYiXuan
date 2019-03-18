@@ -26,7 +26,8 @@ body{
 }
 </style>
 
-
+<!-- 编辑框 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+<script type="text/javascript" src="__PLUGIN__/wangEditor/release/wangEditor.min.js"></script>
 <body>
     <!-- 导航条 -->
     <include file="Base/NavBar_v2" />
@@ -49,40 +50,36 @@ body{
 
         </div>
 
-        <!-- <div class="panel panel-warning comment">
+        <div class="panel panel-warning comment">
                 <div class="panel-heading">
                     <h2 class="panel-title text-center">爱心 ( HùDuï ) 评论</h2>
                 </div>
-
+                <!-- 评论bady -->
+                <volist name="the_saying_comments" id="the_comment">
                 <div class="panel-body row">
                         <div class="col-lg-2 col-md-12 col-xm-12">
-                                <h5><img id="comment_face" src="__UserFace__/fangzhou.png" class="img-circle center-block"></h5>
-                                <h4  class="text-center">小舟</h4>
-                                <h5  class="text-center">2019-3-18</h5>
+                                <h5><img id="comment_face" src="__UserFace__/{$the_comment.author_face_img}" class="img-circle center-block"></h5>
+                                <h4  class="text-center">{$the_comment.author_nickname}</h4>
+                                <p  class="text-center">{$the_comment.time}</p>
                         </div>
                         <div class="col-lg-8 col-md-12 col-xm-12">
-                                hello
+                            {$the_comment.html}
                         </div>
                 </div>
                 <hr>
+               </volist>
 
                 <div class="panel-body">
-                    这是一个基本的面板
+                    <div id="edit_comment">
+
+                    </div>  
+                    <br/>
+                    <button class="btn btn-lg btn-info center-block" id="comment_submit">小舟快帮我发布叭~</button>
                 </div>
 
-                <div class="panel-body">
-                    这是一个基本的面板
-                </div>
-        </div> -->
+        </div>
 
 
-
-        <!-- <div class="edit_comment">
-
-
-            
-
-        </div> -->
 
     </div>
 
@@ -98,10 +95,116 @@ body{
 <script>
     $(document).ready(function(){
 
+    // 编辑框初始文字
+    // var init_text = "<h2>写下小任想对这篇文章说的话吧...</h2>";
+
+    var E = window.wangEditor
+    var editor = new E('#edit_comment')
+    // 或者 var editor = new E( document.getElementById('editor') )
+    // editor.customConfig.uploadImgShowBase64 = false   // 使用 base64 保存图片
+    editor.customConfig.uploadImgServer = '{:U("DailyBoard/upload")}';  // 上传图片到服务器 上传tab
+    editor.customConfig.uploadFileName = 'myFileName';
+    editor.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错
+    editor.customConfig.zIndex = 100;  // 设置 editor zIndex
+    //表格的菜单定义
+    editor.customConfig.menus = [
+        'head',  // 标题
+        // /'bold',  // 粗体
+        //'fontSize',  // 字号
+        //'fontName',  // 字体
+        //'italic',  // 斜体
+        //'underline',  // 下划线
+        //'strikeThrough',  // 删除线
+        //'foreColor',  // 文字颜色
+        //'backColor',  // 背景颜色
+        //'link',  // 插入链接
+        //'list',  // 列表
+        'justify',  // 对齐方式
+        //'quote',  // 引用
+        'emoticon',  // 表情
+        'image',  // 插入图片
+        // 'table',  // 表格
+        // 'video',  // 插入视频
+        //'code',  // 插入代码
+        // 'undo',  // 撤销
+        // 'redo'  // 重复
+    ]
+
+    //回掉函数
+    editor.customConfig.uploadImgHooks = {
+        before : function(xhr, editor, files) {
+            
+        },
+        //成功的回掉函数
+        success : function(xhr, editor, result) {
+            // 图片url == result['data'][0]
+            console.log(result);
+        },
+        fail : function(xhr, editor, result) {
+            console.log("上传失败,原因是"+result);
+        },
+        error : function(xhr, editor) {
+            console.log("上传出错");
+        },
+        timeout : function(xhr, editor) {
+            console.log("上传超时");
+        }
+    }
+    editor.create()
+    //初始化文本框
+    // editor.txt.html(init_text);
+
+    //第一次点击消除编辑框提示文本
+    // $("#edit_comment").click(function(){
+
+    //     if($(this).hasClass("is_init")){
+    //         $(this).removeClass("is_init");
+    //         editor.txt.clear()
+    //     }
+    //     return;
+    // })
+
+    // 提交的点击事件
+    $("#comment_submit").click(function(){
+
+            //是不是艺璇的验证判断
+        if(!has_login()) return false;       
+        
+        var edit_html = editor.txt.html();
+        var edit_text = editor.txt.text();
+        var theurl = "{:U('DailyBoard/save_comment')}";
+        if(edit_html == init_text) {layer.alert("小任任你你没有写评论啦~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+        if(!edit_text && !edit_html.match('img')) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+
+        $(this).text("小舟拼命处理中...");
+        $(this).attr("disabled", "disabled");
+
+        $.post(
+            theurl,
+            {
+                'html' : edit_html,
+                'text' : edit_text,
+                'saying_id' : "{$the_saying.id}"
+            },  
+            function(data){
+                $("#submit").text("小舟快帮我发布叭~");
+                $("#submit").removeAttr("disabled");
+                var obj = JSON.parse(data);
+                layer.alert(obj.msg,{skin: 'layui-layer-lan', title :'小舟说:'},function(){
+
+                    if(obj.status){
+                        location.reload();
+                    }
+                });
 
 
+            }
 
+        )
+        
+        
 
+    })
 
 
     })

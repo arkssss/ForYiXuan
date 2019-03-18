@@ -39,6 +39,10 @@ return array(
 
 		//删除
 		'SAYING_DEL_SUCCESS' => "小任任你删除成功啦, 到底是什么怕老猪哥看到呢",
+
+		//文章评论成功
+		'SAYING_COMMENT_SUCCESS' => "小任任评论成功啦, 小舟哥马上来看哟~~",
+
 	) ,
 
 

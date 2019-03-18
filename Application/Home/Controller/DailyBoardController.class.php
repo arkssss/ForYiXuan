@@ -4,6 +4,7 @@ use Think\Controller;
 use Think\Upload;
 use Home\Model\DailyBoardModel;
 use Home\Model\LogInModel;
+use Home\Model\CommentModel;
 class DailyBoardController extends Controller {
 
     
@@ -20,6 +21,7 @@ class DailyBoardController extends Controller {
      */
     protected $my_model;
     protected $user_model;
+    protected $comment_model;
 
     /**
      * 显示的基本配置
@@ -34,6 +36,7 @@ class DailyBoardController extends Controller {
 
         $this->my_model = D('DailyBoard');
         $this->user_model = D('LogIn'); //处理用户信息
+        $this->comment_model = D('Comment'); // 处理文章评论
         parent::__construct(); 
     }
 
@@ -98,6 +101,25 @@ class DailyBoardController extends Controller {
     }
 
     /**
+     * 文章评论
+     */
+    public function save_comment(){
+
+        $author_id = $this->validate_id();
+        $html = $_POST['html'];
+        $text = I('post.text');
+        $saying_id = intval(I('post.saying_id'), 0);
+
+
+        echo json_encode($this->comment_model->save_saying_comment($author_id, $html, $text, $saying_id));
+
+
+    }
+
+
+
+
+    /**
      * 管理我的发布
      */
     public function Management(){
@@ -140,10 +162,15 @@ class DailyBoardController extends Controller {
         // $user_id = $this->validate_id();  
         
         $id = I('get.id');
+        // 获得文章内容
         $the_saying = $this->my_model->get_one_saying($id);
         $user_id = $the_saying['author'];
+        // 获得作者信息
         $author_info = $this->user_model->get_true_user_info($user_id);
+        // 获得评论信息
+        $the_saying_comments = $this->comment_model->get_saying_comments($id);
 
+        $this->assign("the_saying_comments", $the_saying_comments);
         $this->assign("author_info", $author_info);
         $this->assign("the_saying", $the_saying);
 
