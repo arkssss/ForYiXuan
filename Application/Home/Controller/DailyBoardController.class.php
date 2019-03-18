@@ -145,7 +145,6 @@ class DailyBoardController extends Controller {
     //处理数据
     $this->deal_all_saying();
 
-
     //注入变量
     $this->assign("all_saying", $this->all_saying);
     $this->display("DailyBoard/ShowAll");
@@ -273,15 +272,14 @@ class DailyBoardController extends Controller {
 
         foreach ($this->all_saying as $key => &$value) {
 
-            //收集所有的作者信息
+            // 收集所有的作者信息
             if(!in_array($value['author'], $all_author)) {array_push($all_author, $all_author['author']);}
 
             // 处理文章长度大于10, 则截取为前十
-            if(mb_strlen($value['text'],"utf-8") > $this->show_all_visible_length){
-                $value['text'] = mb_substr($value['text'], 0, $this->show_all_visible_length-1, "utf-8") . "......";
-
-            }            
+            if(mb_strlen($value['text'],"utf-8") > $this->show_all_visible_length){$value['text'] = mb_substr($value['text'], 0, $this->show_all_visible_length-1, "utf-8") . "......";}            
             
+            // 获得评论数量 for语句里面写sql会导致系统很卡
+            $value['comment_num'] = $this->comment_model->count_comment_number($value['id']);
         }
 
         $authors = $this->user_model->get_true_all_user_by_ids($all_author);

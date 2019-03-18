@@ -173,8 +173,7 @@ body{
         var edit_html = editor.txt.html();
         var edit_text = editor.txt.text();
         var theurl = "{:U('DailyBoard/save_comment')}";
-        if(edit_html == init_text) {layer.alert("小任任你你没有写评论啦~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
-        if(!edit_text && !edit_html.match('img')) {layer.alert("小任任你要发空的呀!!~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
+        if(!edit_text && !edit_html.match('img')) {layer.alert("小任任你没有写评论啦~~~",{skin: 'layui-layer-lan', title :'小舟说:'}); return;}
 
         $(this).text("小舟拼命处理中...");
         $(this).attr("disabled", "disabled");

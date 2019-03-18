@@ -62,5 +62,15 @@ class CommentModel extends Model {
 
     }
 
+    /**
+     * 获得评论数量s
+     */
+    public function count_comment_number($saying_id){
+
+        $map['saying_id'] = $saying_id;
+
+        return M($this->TrueTable)->where($map)->count();
+    }
+
 
 }
