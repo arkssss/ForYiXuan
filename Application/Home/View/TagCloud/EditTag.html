@@ -57,7 +57,8 @@
 	</head>
 	<body>
 <!-- 包含侧栏的导航条 -->
-<include file="Base/NavBar_v2" />	
+<include file="Base/NavBar_v2" />
+<include file="Base/dialog_tagcloud_manual"/>
 <div class="jumbotron"></div>
 <h1 class="text-center text-info">爱情种草机</h1>
 <div class="jq22-content volist_tag">
@@ -66,7 +67,7 @@
 		<h2>已有足迹编辑</h2>
         <volist name="fixplace" id="places">
 				<div class="one_tag_group form">
-					<h3 class="text-center text-info">足迹: {$places.title}</h3>
+					<h3 class="text-center text-info">{$places.title}</h3>
 					<div class="form-group">
 						<label for="tag_title">足迹名称: </label>
 						<input type="text" class="form-control" id="tag_title_{$places.id}" name='tag_title' old= "{$places.title}" value="{$places.title}">
@@ -106,18 +107,18 @@ $(function() {
 //手册开关
 $(".illsion").click(function(){
 
-	layer.open({
-	type: 2,
-	title: '种草手册',
-	shadeClose: true,
-	shade: 0.8,
-	area: ['400px', '80%'],
-	content: "{:U('TagCloud/illusion')}", //iframe的url
+	// layer.open({
+	// type: 2,
+	// title: '种草手册',
+	// shadeClose: true,
+	// shade: 0.8,
+	// area: ['400px', '80%'],
+	// content: "{:U('TagCloud/illusion')}", //iframe的url
 	// success:function(layero){
 	// 	$(layero).addClass("scroll-wrapper");
 	// }
-	});
-
+	// });
+	$("#myModal_manual").modal('toggle');
 })
 
 

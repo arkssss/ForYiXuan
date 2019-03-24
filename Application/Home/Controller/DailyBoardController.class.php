@@ -163,6 +163,9 @@ class DailyBoardController extends Controller {
         $id = I('get.id');
         // 获得文章内容
         $the_saying = $this->my_model->get_one_saying($id);
+        
+        if(!$the_saying) {echo "<script>javascript:history.back(-1);</script>" ; exit();} // 不存在该文章
+
         $user_id = $the_saying['author'];
         // 获得作者信息
         $author_info = $this->user_model->get_true_user_info($user_id);
