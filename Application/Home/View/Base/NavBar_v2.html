@@ -63,9 +63,9 @@
 
         <div class="collapse navbar-collapse col-lg-8 text-center NavBar_content" id="example-navbar-collapse">
             <ul class="nav navbar-nav row">
-                <li class="text-bolder"><a href="{:U('LoveContract/index')}">恋爱合约</a></li>
-                <li><a href="{:U('TimeCounter/index')}">倒计时 & 纪念日</a></li>
-                <li class="dropdown">
+                <li class="text-bolder need_login"><a href="{:U('LoveContract/index')}">恋爱合约</a></li>
+                <li class="need_login"><a href="{:U('TimeCounter/index')}">倒计时 & 纪念日</a></li>
+                <li class="dropdown need_login">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
                         足迹云 <b class="caret"></b>
                     </a>
@@ -79,9 +79,9 @@
                         <li><a href="#">另一个分离的链接</a></li> -->
                     </ul>
                 </li>
-                <li><a href="{:U('PhotoWall/index')}">照片墙</a></li>
-                <li><a href="{:U('beginning/index')}">想对你说</a></li>
-                <li class="dropdown navbar_our_sayings">
+                <li class="need_login"><a href="{:U('PhotoWall/index')}">照片墙</a></li>
+                <li class="need_login"><a href="{:U('beginning/index')}">想对你说</a></li>
+                <li class="dropdown need_login">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
                             生活瞬间<span class="text-danger">(NEW)</span> <b class="caret"></b>
                         </a>
@@ -91,7 +91,7 @@
                             <li><a href="{:U('DailyBoard/Edit')}">发布瞬间</a></li>
                         </ul>
                 </li>
-                <li><a href="{:U('Card/index')}">爱心卡片</a></li>
+                <li class="need_login"><a href="{:U('Card/index')}">爱心卡片</a></li>
                 
 
                 
@@ -119,7 +119,7 @@
 <script>    
 
 
-    $(".navbar_our_sayings").click(function(){
+    $(".need_login").click(function(){
 
         if(!has_login()) return false;
     })
