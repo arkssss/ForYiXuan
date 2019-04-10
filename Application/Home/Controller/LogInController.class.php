@@ -121,7 +121,7 @@ class LogInController extends Controller {
         //登陆验证
         echo  json_encode($this->my_model->validate_login($username, $password));
 
-
+        
     }
 
 

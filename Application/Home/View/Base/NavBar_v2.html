@@ -97,7 +97,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{:U('LovingValue/FromMe')}">我对TA的好感值</a></li>
-                            <li><a href="{:U('LovingValue/ToMe')}">TA对我的好感值</a></li>
+                            <li><a href="{:U('LovingValue/ToMe')}">TA对我的好感值 <i id="loving_updown_icon"></i></a></li>
                         </ul>
                 </li>
                 <li class="need_login"><a href="{:U('Card/index')}">爱心卡片</a></li>
@@ -139,7 +139,30 @@
         url = "{:U('Beginning/index')}";
         location.href = url;    
     })
-    
+
+    function set_loving_icon(){
+
+        $thurl = "{:U('LovingValue/navbar_get_recent_comment')}";
+        $.post(
+            $thurl,
+            function(obj){
+                obj = JSON.parse(obj);
+                var up_down = obj.up_down;
+                if(up_down == "0") {
+                    // down
+                    $("#loving_updown_icon").addClass("glyphicon glyphicon-arrow-down text-info");
+
+                }else if(up_down == "1"){
+                    // up
+                    $("#loving_updown_icon").addClass("glyphicon glyphicon-arrow-up text-danger");
+
+                }
+            }
+        )
+
+
+    }
+
     $(document).ready(function(){
         var user_id = $.cookie('id');
         var url = "{:U('LogIn/EditProfile')}"
@@ -148,14 +171,19 @@
             $("#navbar_has_login").css('display','block');
             //设置nickname
             $("#navbar_has_login .navbar_username").html($.cookie("nickname"))
-            $("#navbar_has_login .navbar_personal_info_url").attr("href",url);   
-
-
+            $("#navbar_has_login .navbar_personal_info_url").attr("href",url);  
+            
+            
+            // -------- 如果登陆成功
+            // ajax 设置loving_value相关的icon 
+            set_loving_icon();  
 
         }else{
             //未登陆的设置
             $("#navbar_not_login").css('display','block');
         }
+
+
     })
 
 </script>

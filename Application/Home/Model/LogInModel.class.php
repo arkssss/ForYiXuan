@@ -8,7 +8,7 @@ use Think\Model;
 class LogInModel extends Model {
 
     protected $UserTrueTable = "user";
-
+    protected $LovingValueTable = "loving_value";
 
 
 

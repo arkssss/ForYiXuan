@@ -3,7 +3,7 @@
  */
 
  //需要保存的cookies常量
-user_cookie = ['birthday', 'email','face_img', 'id', 'loving', 'nickname','register_time', 'username']
+user_cookie = ['birthday', 'email','face_img', 'id', 'loving', 'nickname','register_time', 'username','up_down']
 
 
 /**

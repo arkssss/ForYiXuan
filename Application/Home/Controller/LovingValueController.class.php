@@ -21,6 +21,17 @@ class LovingValueController extends Controller {
     }
 
     /**
+     * 获取最近一条的跟新信息
+     */
+    public function navbar_get_recent_comment(){
+
+        $my_id = $this->validate_id();  
+
+        echo json_encode($this->loving_value_record->get_loving_info("to", $my_id));
+
+    }
+
+    /**
     * 根据传入的cookies 验证id
     */
     protected function validate_id(){

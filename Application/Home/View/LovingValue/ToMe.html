@@ -120,7 +120,7 @@
     <div class="row head_face_frame">
 
         <div class="col-lg-4 col-xs-5">
-            <img src="__UserFace__/{$lover_info.face_img}"  class="head_face img-circle center-block">
+            <img src="__UserFace__/{$lover_info.face_img}"  class="lover_fave head_face img-circle center-block">
             <h3 class="text-center">{$lover_info.nickname}</h3>
         </div>
 
@@ -151,7 +151,9 @@
             好感值
     </h2>
     
-    <h2 class="loving_value text-center" style="color : #ff749f">
+    <h2 class="text-center" style="color : #ff749f">
+        <span class="loving_value"></span>
+        <i class="my_loving_arrow"></i>
     </h2>
 
     
@@ -199,8 +201,28 @@
         // insert 
         $("#heart").append(get_stype(frames));
         
+        // set 上升下降箭头
+        set_loving_arrow();
+    
+   
+
+
+        
     })  
 
+    function set_loving_arrow(){
+        up_down = "{$loving_info.up_down}"
+        if(up_down == "0") {
+                    // down
+            $(".my_loving_arrow").addClass("glyphicon glyphicon-arrow-down text-info");
+
+        }else if(up_down == "1"){
+                    // up
+            $(".my_loving_arrow").addClass("glyphicon glyphicon-arrow-up text-danger");
+
+        }
+
+    }
 
 
     // 但会插入的改变样式的string
@@ -241,12 +263,15 @@
     }
 
 
-
     $(".not_yet").click(function(){
         layer.alert("这个功能还在开发中啦, 小舟不要头发啦?", {skin: 'layui-layer-lan',      title :'小舟说:'})
     })
 
 
+    // 显示最新的一条评论 
+    $(".lover_fave").click(function(){
+        layer.tips("{$loving_info.comment}", this, { tips: 1, zIndex:100});
+    })
 
 
 
