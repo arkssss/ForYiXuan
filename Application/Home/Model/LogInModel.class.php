@@ -1,6 +1,6 @@
 <?php
 /**
- * 处理的DailyBoard专用的数据库操作类
+ * 处理的LogIn逻辑专用的数据库操作类
  */
 namespace Home\Model;
 use Think\Model;

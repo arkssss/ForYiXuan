@@ -1,0 +1,414 @@
+<include file = "Base/head" />
+<meta charset="utf-8" />
+<style type="text/css">
+    .head_face{
+        width: 100px;
+        height: 100px;
+    }  
+    .head_face_frame{
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 100px;
+    }
+    .plus_minus_button{
+        width:50%; 
+        margin:0 auto;
+    }
+    @media screen and (max-width: 600px){
+        .head_face_frame{
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 100px;
+            
+        }
+        .plus_minus_button{
+            width:70%; 
+            margin:0 auto;
+        }
+
+    }
+
+    .item{
+        margin: 100px auto;
+    }
+    .heart_frame{
+        width: 80%;
+        height: 150px;
+    }
+    #heart{
+        margin: 50px auto; 
+        width: 100px;
+        height: 90px; 
+        /* position:  absolute;
+        top: 50%;
+        left: 50%; */
+        -webkit-animation: pound 1s infinite;
+        -ms-animation: pound 1s infinite;
+        -moz-animation: pound 1s infinite;
+        -o-animation: pound 1s infinite;
+        animation: pound 1s infinite;
+    }
+    #heart:before,#heart:after{
+        position: absolute; 
+        content: ""; 
+        left: 50px; 
+        top: 20%; 
+        width: 50px; 
+        height: 80px;
+        background: #ff749f;
+        border-radius: 50px 50px 0 0;
+        -webkit-border-radius: 50px 50px 0 0;
+        -ms-border-radius: 50px 50px 0 0;
+        -moz-border-radius: 50px 50px 0 0;
+        -o-border-radius: 50px 50px 0 0;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform-origin: 0 100%;
+        -webkit-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+        -moz-transform-origin: 0 100%;
+        -o-transform-origin: 0 100%;
+    }
+    #heart:after{
+        left: 0px; 
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform-origin: 100% 100%;
+        -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+        -moz-transform-origin: 100% 100%;
+        -o-transform-origin: 100% 100%;
+    }
+    @keyframes pound {
+        from { transform: scale(1.0);}
+        30% { transform: scale(1.2);}
+        40% { transform: scale(1.6);}
+        50% { transform: scale(1.2);}
+        60% { transform: scale(1.6);}
+        70% { transform: scale(1.2);}
+        to { transform: scale(1.0);}
+    }
+
+
+    </style>
+</head>
+<body>
+<!-- 包含侧栏的导航条 -->
+<include file="Base/NavBar_v2" />
+
+<div class="container" style="margin:100px auto;">
+
+    <h2 class="text-center">
+            好感精灵 🧚‍
+    </h2>
+
+    <div class="row head_face_frame">
+
+            <div class="col-lg-4 col-xs-5">
+                <img src="__UserFace__/{$my_info.face_img}"  class="head_face img-circle center-block">
+                <h4 class="text-center">我</h4>
+            </div>
+    
+            <div class="col-lg-4 col-xs-2   ">
+    
+                <h1 class="text-center">
+    
+                    <i class="glyphicon glyphicon-arrow-right"> </i>
+                </h1>
+    
+            </div>
+    
+    
+            <div class="col-lg-4 col-xs-5 pull-right">
+                <img src="__UserFace__/{$lover_info.face_img}" class="head_face img-circle center-block">
+                <h4 class="text-center">{$lover_info.nickname}</h4>
+            </div>
+    
+    </div>
+
+
+
+
+    <!-- Heart -->
+    <div class="item heart_frame">
+        <div id="heart" class="center-block"></div>
+    </div> 
+
+
+
+    <h2 class="text-center" style="color : #ff749f; margin-top: 200px">
+            好感值
+    </h2>
+    
+    <h2 class="loving_value text-center" style="color : #ff749f">
+
+    </h2>
+
+
+    <div class="row" style="margin-top:100px">
+
+        <h4 class="text-center text-info">我要修改好感啦</h4>
+        <hr>
+
+        <div class="btn-group btn-group-sm" style="margin: 50px auto;display: table;">
+                <h5 class="text-center">选择增加(减少)尺度</h5>
+                <button type="button" class="btn btn-default scale" value="0.1">0.1</button>
+                <button type="button" class="btn btn-default scale" value="0.2">0.2</button>
+                <button type="button" class="btn btn-default scale" value="0.3">0.3</button>
+                <button type="button" class="btn btn-default scale" value="0.4">0.4</button>
+                <button type="button" class="btn btn-default scale" value="0.5">0.5</button>
+        </div>
+        <div class="plus_minus_button" class="col-lg-12">
+            <button id="minus" class="btn btn-danger col-lg-2 col-sx-4"> <i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;<i class="glyphicon glyphicon-minus"></i> <i id="current_scale" class="scale_number">0.1</i> </button>
+            <button id="plus"  class="btn btn-info col-lg-2 col-sx-4 pull-right"> <i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;<i class="glyphicon glyphicon-plus"></i> <i class="scale_number">0.1</i></button>
+        </div>      
+
+        <div class="col-lg-12" style="margin-top: 100px">
+            <button id="confirm" class="center-block btn btn-info btn-lg">确认修改</button>
+        </div>
+
+    </div>
+ 
+<include file = "Base/foot" />
+</body>
+<script>
+
+    var MAX_LOVING = 100.0
+    var MIN_LOVING = 10.0
+
+    
+    // from data_base init 好感值
+    var init_loving= parseFloat("{$loving_info.value}");
+
+    
+    // 当前的好感值
+    var current_loving = init_loving;
+
+    // 50 对于大小为 1 的心
+    var rate = 0.025
+
+    // 每个帧数的缩放比例
+    var scale_rate = new Array(1.2, 1.4, 1.8, 1.4, 1.8, 1.4, 1.2);
+
+
+    //初始化
+    $(document).ready(function(){
+        // insert lovint value
+        change_display_value(init_loving);
+
+        var frames = get_frames_array(current_loving);
+
+        // insert 
+        $("#heart").append(get_stype(frames));
+        
+    })  
+
+
+    // 获得当前的心的size 数组
+    function get_frames_array(current_value) {
+
+        current_size = rate * current_value;
+
+        var frames  = new Array();
+
+        for(var i = 0 ;i<scale_rate.length;i++){
+            frames[i] = scale_rate[i] * current_size;
+        }  
+        
+        return frames;
+
+    }
+
+
+
+    // 改变显示的值
+    function change_display_value(my_value){
+
+         $(".loving_value").html(my_value);
+
+    }
+
+
+
+    // 但会插入的改变样式的string
+    function get_stype(frames){
+
+        return  " <style>@keyframes pound {" +
+                        "from { transform: scale("+frames[0]+");}" + 
+                        "30% { transform: scale("+frames[1]+");}" +
+                        "40% { transform: scale("+frames[2]+");}" +
+                        "50% { transform: scale("+frames[3]+");}" +
+                        "60% { transform: scale("+frames[4]+");}" + 
+                        "70% { transform: scale("+frames[5]+");}" +
+                        "to { transform: scale("+frames[6]+");}" +
+            "</style>" ;
+    }
+
+
+
+
+
+
+    // click 改变样式
+    $('#plus').click(function(){
+
+        var current_scale = parseFloat($("#current_scale").text());
+        
+        if(!check_scale(current_loving+current_scale)) return;        
+        // fix 精度问题
+        current_loving += current_scale;
+        // console.log(typeof(current_loving));
+        current_loving = parseFloat(current_loving.toFixed(1))
+
+        
+        change_display_value(current_loving);
+
+
+        var frames = get_frames_array(current_loving);
+
+        // insert 
+        $("#heart").append(get_stype(frames));
+
+
+    })
+
+
+    // click 改变样式
+    $('#minus').click(function(){ 
+
+        var current_scale = parseFloat($("#current_scale").text());
+        
+        if(!check_scale(current_loving-current_scale)) return;
+
+        // fix 精度问题
+        current_loving -= current_scale;
+        current_loving = parseFloat(current_loving.toFixed(1))
+
+        
+        change_display_value(current_loving);
+
+
+        var frames = get_frames_array(current_loving);
+
+        // insert 
+        $("#heart").append(get_stype(frames));
+
+
+    })
+
+    // 好感不可以一直增长
+    function check_scale(value){
+
+        if(value > MAX_LOVING) {
+            layer.alert("好感最多只能是100哦, 当然小任任还想增加, 去联系小舟吧", {skin: 'layui-layer-lan', title :'小舟说:'}) ;
+            return false;
+            }
+        if(value < MIN_LOVING){
+            layer.alert("小任任你想干嘛!! 还要减小舟的好感, 我要giao你了!!", {skin: 'layui-layer-lan', title :'小舟说:'});
+            return false;
+        }
+        return true;
+
+    }
+
+
+    // 尺度按钮
+    $(".scale").click(function(){
+        var change_scale = $(this).attr('value');
+        $(".scale_number").text(change_scale);
+    })
+
+
+    // 提交修改
+    $("#confirm").click(function(){ 
+
+        var comment = ""
+        var url = "{:U('LovingValue/update')}"
+        if(current_loving == init_loving) {
+            layer.alert("小任任你没有改啦, 休想骗我!!", {skin: 'layui-layer-lan', title :'小舟说:'});
+            return;
+        }
+        // 好感增加
+        if(current_loving > init_loving){
+
+            layer.prompt({
+            formType: 2,
+            title: '好感上升了诶, 小任任记录下心动理由吧',
+            }, function(value, index, elem){
+            layer.close(index);
+            var loding  = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            // 获取文本    
+            comment = value;    
+
+            $.post(
+                url,
+                {
+                    'comment' : comment,
+                    'up_down' : 1 , // 1 表示上升
+                    'current_loving'   : current_loving,
+                    'to'      : "{$lover_info.id}"
+                },
+                function(obj){
+                    obj = JSON.parse(obj);
+                    // 返回消息
+                    layer.close(loding) 
+                    layer.alert(obj.msg, {skin: 'layui-layer-lan',      title :'小舟说:'})
+                }
+            )        
+
+            });
+            
+
+        }
+        // 好感减少
+        if(current_loving < init_loving){
+
+             layer.prompt({
+            formType: 2,
+            title: '好感下降了诶, 写下小舟做了什么过分的事吧!',
+            }, function(value, index, elem){
+            layer.close(index);
+            // 获取文本    
+            comment = value;  
+            var loding  = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            $.post(
+                url,
+                {
+                    'comment' : comment,
+                    'up_down' : 0 , // 1 表示上升
+                    'current_loving'   : current_loving,
+                    'to'      : "{$lover_info.id}"
+                },
+                function(obj){
+                    obj = JSON.parse(obj);
+                    // 返回消息
+                    layer.close(loding);
+                    layer.alert(obj.msg, {skin: 'layui-layer-lan',      title :'小舟说:'})
+                }
+            )        
+
+            });
+
+
+        }
+
+    })
+
+
+
+</script>
+
+
+</html> 

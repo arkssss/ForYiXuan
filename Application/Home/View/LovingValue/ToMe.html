@@ -1,0 +1,216 @@
+<include file = "Base/head" />
+<meta charset="utf-8" />    
+<style type="text/css">
+    .head_face{
+        width: 100px;
+        height: 100px;
+    }  
+    .head_face_frame{
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 100px;
+    }
+    .plus_minus_button{
+        width:50%; 
+        margin:0 auto;
+    }
+    .loving_anlayze{
+        width: 50%;
+    }
+    @media screen and (max-width: 600px){
+        .loving_anlayze{
+         width: 80%
+        }
+        .head_face_frame{
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 100px;
+            
+        }
+        .plus_minus_button{
+            width:70%; 
+            margin:0 auto;
+        }
+
+    }
+
+    .item{
+        margin: 100px auto;
+    }
+    .heart_frame{
+        width: 80%;
+        height: 150px;
+    }
+    #heart{
+        margin: 50px auto; 
+        width: 100px;
+        height: 90px; 
+        /* position:  absolute;
+        top: 50%;
+        left: 50%; */
+        -webkit-animation: pound 1s infinite;
+        -ms-animation: pound 1s infinite;
+        -moz-animation: pound 1s infinite;
+        -o-animation: pound 1s infinite;
+        animation: pound 1s infinite;
+    }
+    #heart:before,#heart:after{
+        position: absolute; 
+        content: ""; 
+        left: 50px; 
+        top: 20%; 
+        width: 50px; 
+        height: 80px;
+        background: #ff749f;
+        border-radius: 50px 50px 0 0;
+        -webkit-border-radius: 50px 50px 0 0;
+        -ms-border-radius: 50px 50px 0 0;
+        -moz-border-radius: 50px 50px 0 0;
+        -o-border-radius: 50px 50px 0 0;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform-origin: 0 100%;
+        -webkit-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+        -moz-transform-origin: 0 100%;
+        -o-transform-origin: 0 100%;
+    }
+    #heart:after{
+        left: 0px; 
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform-origin: 100% 100%;
+        -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+        -moz-transform-origin: 100% 100%;
+        -o-transform-origin: 100% 100%;
+    }
+    @keyframes pound {
+        from { transform: scale(1.0);}
+        30% { transform: scale(1.2);}
+        40% { transform: scale(1.6);}
+        50% { transform: scale(1.2);}
+        60% { transform: scale(1.6);}
+        70% { transform: scale(1.2);}
+        to { transform: scale(1.0);}
+    }
+
+
+    </style>
+</head>
+<body>
+<!-- 包含侧栏的导航条 -->
+<include file="Base/NavBar_v2" />
+
+<div class="container" style="margin:100px auto;">
+
+    <h2 class="text-center">
+        好感精灵 🧚‍
+    </h2>
+
+    <!-- <h3 class="text-center center-block glyphicon glyphicon-hand-right"></h3> -->
+    <div class="row head_face_frame">
+
+        <div class="col-lg-4 col-xs-5">
+            <img src="__UserFace__/{$lover_info.face_img}"  class="head_face img-circle center-block">
+            <h3 class="text-center">{$lover_info.nickname}</h3>
+        </div>
+
+        <div class="col-lg-4 col-xs-2   ">
+
+            <h1 class="text-center">
+
+                <i class="glyphicon glyphicon-arrow-right"> </i>
+            </h1>
+
+        </div>
+
+
+        <div class="col-lg-4 col-xs-5 pull-right">
+            <img src="__UserFace__/{$my_info.face_img}" class="head_face img-circle center-block">
+            <h3 class="text-center">我</h3>
+        </div>
+
+    </div>
+
+
+    <!-- Heart -->
+    <div class="item heart_frame">
+        <div id="heart" class="center-block"></div>
+    </div> 
+
+    <h2 class="text-center" style="color : #ff749f; margin-top: 100px">
+            好感值
+    </h2>
+    
+    <h2 class="loving_value text-center" style="color : #ff749f">
+        {$loving_info.value}
+    </h2>
+
+    
+    <div class="item"  style="margin-top : 100px;"> 
+        <h4 class="text-center text-info">好感数据高级分析</h4>
+        <hr>
+        <div class="loving_anlayze row" style="margin:0 auto">
+            <button  class="not_yet btn btn-info col-lg-2 col-xs-4 "> 好感曲线 </button>
+            <button  class="not_yet btn btn-info col-lg-2 col-xs-4 pull-right"> 好感评论 </button>
+        </div>
+    </div>
+</div>
+
+<include file = "Base/foot" />
+
+</body>
+<script>
+
+    var MAX_LOVING = 100.0
+    var MIN_LOVING = 10.0
+
+
+    // from data_base init 好感值
+    var init_loving= "{$loving_info.value}";
+
+
+    
+    // 当前的好感值
+    var current_loving = init_loving;
+
+    // 50 对于大小为 1 的心
+    var rate = 0.025
+
+    // 每个帧数的缩放比例
+    var scale_rate = new Array(1.2, 1.4, 1.8, 1.4, 1.8, 1.4, 1.2);
+
+
+    //初始化
+    $(document).ready(function(){
+        // insert lovint value
+        change_display_value(init_loving);
+
+        var frames = get_frames_array(current_loving);
+
+        // insert 
+        $("#heart").append(get_stype(frames));
+        
+    })  
+
+    $(".not_yet").click(function(){
+        layer.alert("这个功能还在开发中啦, 小舟不要头发啦?", {skin: 'layui-layer-lan',      title :'小舟说:'})
+    })
+
+
+
+
+
+</script>
+
+
+</html> 

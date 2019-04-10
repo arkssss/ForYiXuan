@@ -43,6 +43,9 @@ return array(
 		//文章评论成功
 		'SAYING_COMMENT_SUCCESS' => "小任任评论成功啦, 小舟哥马上来看哟~~",
 
+		//好感值跟新成功
+		'LOVING_VALUE_UPDATE_SUCCESS' => "小任任好感值更改成功啦, 小舟哥马上就可以看到啦~~"
+
 	) ,
 
 
