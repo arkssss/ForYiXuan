@@ -152,7 +152,6 @@
     </h2>
     
     <h2 class="loving_value text-center" style="color : #ff749f">
-        {$loving_info.value}
     </h2>
 
     
@@ -176,7 +175,7 @@
 
 
     // from data_base init 好感值
-    var init_loving= "{$loving_info.value}";
+    var init_loving=  parseFloat("{$loving_info.value}");;
 
 
     
@@ -201,6 +200,47 @@
         $("#heart").append(get_stype(frames));
         
     })  
+
+
+
+    // 但会插入的改变样式的string
+    function get_stype(frames){
+
+    return  " <style>@keyframes pound {" +
+                    "from { transform: scale("+frames[0]+");}" + 
+                    "30% { transform: scale("+frames[1]+");}" +
+                    "40% { transform: scale("+frames[2]+");}" +
+                    "50% { transform: scale("+frames[3]+");}" +
+                    "60% { transform: scale("+frames[4]+");}" + 
+                    "70% { transform: scale("+frames[5]+");}" +
+                    "to { transform: scale("+frames[6]+");}" +
+        "</style>" ;
+    }
+
+    // 改变显示的值
+    function change_display_value(my_value){
+
+    $(".loving_value").html(my_value);
+
+    }
+
+
+        // 获得当前的心的size 数组
+    function get_frames_array(current_value) {
+
+        current_size = rate * current_value;
+
+        var frames  = new Array();
+
+        for(var i = 0 ;i<scale_rate.length;i++){
+            frames[i] = scale_rate[i] * current_size;
+        }  
+
+        return frames;
+
+    }
+
+
 
     $(".not_yet").click(function(){
         layer.alert("这个功能还在开发中啦, 小舟不要头发啦?", {skin: 'layui-layer-lan',      title :'小舟说:'})
