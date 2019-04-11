@@ -34,6 +34,15 @@ class LovingValueRecordModel extends Model {
 
     // ----------------- 保存数据层
 
+    /**
+     * 给field_name 字段跟新为 update_value
+     */
+    public function update_field($field_name, $update_value, $map){
+
+       return M($this->loving_value_table)->where($map) -> setField($field_name,  $update_value);
+
+    }
+    
     public function update_loving($comment, $current_loving, $to, $from, $up_down){
 
         $ret = [];

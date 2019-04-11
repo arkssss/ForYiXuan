@@ -70,13 +70,23 @@ class LovingValueController extends Controller {
      * 显示别人对我的好感评价
      */
     public function ToMe(){
-
+        
         // 获得我的id
         $my_id = $this->validate_id();
 
         // 获得对我的当前评价
         $loving_info = $this->loving_value_record->get_loving_info('to',$my_id);
         $lover_id = $loving_info['from'];
+
+        // 点进去之后就把TA对我的的跟新位置0
+        $has_update = $loving_info['has_update'];
+        if($has_update) {
+            // 为 1 则跟新
+            $value = "0";
+            $map['to'] = $my_id;
+            $map['from'] = $lover_id;
+            $this->loving_value_record->update_field("has_update",$value, $map);
+        }
 
 
         // 获得用户信息 
