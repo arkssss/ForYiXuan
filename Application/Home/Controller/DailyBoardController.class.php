@@ -128,7 +128,7 @@ class DailyBoardController extends Controller {
     */
    public function ShowAll(){
 
-
+    $this->validate_id(1);
     $this->all_saying = $this->my_model->get_all_saying();
     //处理数据
     $this->deal_all_saying();
