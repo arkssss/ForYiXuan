@@ -26,7 +26,7 @@ class TagCloudController extends Controller {
 
 
     public function index(){
-
+        $this->validate_id(1);
         // 采取直接渲染的方式是为了
         $this->rule_tag();
         $this->assign('tags', $this->advance_cahce_tag);
@@ -37,8 +37,7 @@ class TagCloudController extends Controller {
      * 编辑tag界面
      */
     public function EditTag(){
-
-
+        $this->validate_id(1);
         // 拿数据
         $this->rule_tag_edit();
         // var_dump($this->advance_cache_tag_edit);
@@ -58,14 +57,14 @@ class TagCloudController extends Controller {
 
     }
 
-/**
- * 展示引导手册
- */
-public function illusion(){
+    /**
+     * 展示引导手册
+     */
+    public function illusion(){
 
-    $this->display();
+        $this->display();
 
-}
+    }
 
     /**
      * 接受修改的Ajax 请求

@@ -42,6 +42,29 @@ abstract class Controller {
     }
 
     /**
+    * 根据传入的cookies 验证id
+    * 如果save_record = 1 则记录浏览数据
+    */
+    protected function validate_id($save_record = 0){
+
+        $cookie_id = intval(I("cookie.id"),0);
+        if(!$cookie_id) {
+            echo "you don't have access!";
+            exit();
+        }
+        if($save_record){
+            $visit_record = "visit_record";
+            $data['time'] = date("Y-m-d H:i:s",time());
+            $tmp = explode("\\", get_called_class());  // 可以获得调用这个函数子类的名称
+            $data['page'] = $tmp[count($tmp)-1];
+            $data['uid'] = $cookie_id;
+            M($visit_record)->add($data);
+        }
+        return $cookie_id;
+
+    }
+
+    /**
      * 模板显示 调用内置的模板引擎显示方法，
      * @access protected
      * @param string $templateFile 指定要调用的模板文件

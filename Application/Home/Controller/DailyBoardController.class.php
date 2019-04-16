@@ -24,6 +24,9 @@ class DailyBoardController extends Controller {
     protected $comment_model;
 
     /**
+     * 访问控制层
+     */
+    /**
      * 显示的基本配置
      */
     protected $show_all_visible_length = 12;
@@ -48,7 +51,7 @@ class DailyBoardController extends Controller {
    */
    public function Edit(){
 
-    $user_id = $this->validate_id();
+    $user_id = $this->validate_id(1);
     $saying_id = intval(I('get.id'), 0);
     $ones_saying = $this->my_model->check_ones_saying($user_id, $saying_id);
 
@@ -85,21 +88,6 @@ class DailyBoardController extends Controller {
         return $cookie_id;
     }
 
-   /**
-    * 验证id
-    */
-   protected function validate_id(){
-
-        $cookie_id = intval(I("cookie.id"),0);
-
-        if(!$cookie_id) {
-            echo "you don't have access!";
-            exit();
-        }
-        return $cookie_id;
-
-    }
-
     /**
      * 文章评论
      */
@@ -124,7 +112,7 @@ class DailyBoardController extends Controller {
      */
     public function Management(){
 
-        $user_id = $this-> validate_id();
+        $user_id = $this->validate_id(1);
 
         $this->ones_all_saying = $this->my_model->get_ones_all_saying_textonly($user_id);
         $this->deal_ones_all_saying(); 
@@ -204,7 +192,7 @@ class DailyBoardController extends Controller {
 
         //防止直接进入页面
         if(!IS_POST) {echo "you don't have access";  $this->redirect('Beginning/index');  exit();}
-        $author = $this->validate_id();
+        $author = $this->validate_id();;
 
         //这里不能用I过滤
         $html = $_POST['html'];

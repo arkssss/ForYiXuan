@@ -25,24 +25,9 @@ class LovingValueController extends Controller {
      */
     public function navbar_get_recent_comment(){
 
-        $my_id = $this->validate_id();  
+        $my_id = $this->validate_id(); 
 
         echo json_encode($this->loving_value_record->get_loving_info("to", $my_id));
-
-    }
-
-    /**
-    * 根据传入的cookies 验证id
-    */
-    protected function validate_id(){
-
-        $cookie_id = intval(I("cookie.id"),0);
-
-        if(!$cookie_id) {
-            echo "you don't have access!";
-            exit();
-        }
-        return $cookie_id;
 
     }
 
@@ -51,7 +36,7 @@ class LovingValueController extends Controller {
      */
     public function update(){
         // 获得 我的id 
-        $my_id = $this-> validate_id();
+        $my_id = $this->validate_id();
 
         // 获得数据
         $comment = I('post.comment');
@@ -72,7 +57,7 @@ class LovingValueController extends Controller {
     public function ToMe(){
         
         // 获得我的id
-        $my_id = $this->validate_id();
+        $my_id = $this->validate_id(1); 
 
         // 获得对我的当前评价
         $loving_info = $this->loving_value_record->get_loving_info('to',$my_id);
@@ -109,8 +94,7 @@ class LovingValueController extends Controller {
      */
     public function FromMe(){
 
-        $my_id = $this->validate_id();
-
+        $my_id = $this->validate_id(1);  
         // 获得我对别人的当前评价
         $loving_info = $this->loving_value_record->get_loving_info('from',$my_id);
         $lover_id = $loving_info['to'];
