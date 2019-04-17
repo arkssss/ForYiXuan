@@ -5,3 +5,4 @@ Runtime/**
 .vscode
 .DS_Store
 Public/Uploads/
+Application/Common/Conf/database.php
