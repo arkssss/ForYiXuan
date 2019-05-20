@@ -1,0 +1,437 @@
+﻿<include file="Base/head"/>  
+
+        <link type="text/css" rel="stylesheet" href="__PLUGIN__/my_520/default.css">
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jquery.min.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex.min.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex-parser.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex-jit.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex-builderbase.min.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex-async.min.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/jscex-async-powerpack.min.js"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/functions.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="__PLUGIN__/my_520/love.js" charset="utf-8"></script>
+
+	    <style type="text/css">
+            .STYLE1 {color: #666666}
+        </style>
+
+</head>
+
+    <body>
+        <div id="main">
+             <div id="wrap">
+
+                <div id="text">
+
+			        <div id="code">
+
+			      <font color="#FF0000">  
+
+                        <span class="say">哈哈哈, 没想到吧, 520这种重要的节日, 小舟怎么会不给小任惊喜嘞</span><br>
+                        <span class="say">接下来就是小舟精心制作的小情书(虽然写了好多封了)</span><br>
+                        <span class="say">估计小任看着都没感觉了, 不行必须给我有感觉!!</span><br>
+
+                        <span class="say"></span><br>
+                    
+                  	    <span class="say">亲爱的艺璇, 今天是我们相遇的第一个520.</span><br>
+
+                        <span class="say">也是我们相识的第207天.</span><br>
+
+                        <span class="say">在这207个岁月里, 我真正理解的幸福和开心的含义.</span><br>
+
+                        <span class="say">虽然中间有近5个月的时间, 我们都处于异地.</span><br>
+
+                        <span class="say">但伟大的爱情💗啊, 从不会被距离和时间所限制.</span><br>
+
+                        <span class="say">相隔大大半个地球, 对艺璇的依赖却越来越深, /span><br>
+
+                        <span class="say">仿佛自己的生活艺璇一直在身边陪着我一起度过.</span><br>
+
+                        <span class="say">异地的考验让我更加确信,</span><br>
+
+                        <span class="say">小任就是我以后生活不可或缺的那一半.</span><br>
+
+                        <span class="say">记得小任今天问我, 为什么在这边总喜欢一个人,</span><br>
+
+                        <span class="say">或许就是因为, 我一直在留一个空间给小任呀.</span><br>
+
+                        <span class="say">还剩35天就可以结束异地生活</span><br>
+
+                        <span class="say">已经想到了无数的好吃好喝好玩的想回去后和艺璇体验</span><br>
+
+                        <span class="say">无数开心的, 难过的, 有趣的事听艺璇分享</span><br>
+
+                        <span class="say">讲不完的话, 或者根本不需要说话, 看着对方就可以</span><br> 
+
+                        <span class="say">美好的事情太多, 或许根本描述不完</span><br> 
+
+                        <span class="say">但美好的岁月只有一种, 叫和小任在一起的岁月</span><br> 
+
+                        <span class="say">美好的岁月还长, 岁月静好, 希望小任和小舟细水长流</span><br> 
+
+                        <br>
+                        <span class="say">              ------爱你如初的小舟, 于2019.5.20</span><br> 
+			     </font></p>
+
+      </div>
+
+                </div>
+
+                <div id="clock-box">
+
+                    <span class="STYLE1"></span><font color="#990066">亲爱的艺璇，我喜欢你</font>
+
+<span class="STYLE1">已经是……</span>
+
+                  <div id="clock"></div>
+
+              </div>
+
+                <canvas id="canvas" width="1100" height="680"></canvas>
+
+            </div>
+
+            <button id="_jump" style="margin-top:60px;" class="center-block btn btn-lg btn-success">朕已阅, 保证对小舟好!!!</button>
+
+        </div>
+
+    
+
+    <script>
+
+    </script>
+
+
+
+    <script>
+
+    (function(){
+
+        $("#_jump").click(function(){
+            self.location = "{:U('Beginning/Beginning')}"
+        })
+
+        var canvas = $('#canvas');
+
+		
+
+        if (!canvas[0].getContext) {
+
+            $("#error").show();
+
+            return false;        }
+
+
+
+        var width = canvas.width();
+
+        var height = canvas.height();        
+
+        canvas.attr("width", width);
+
+        canvas.attr("height", height);
+
+        var opts = {
+
+            seed: {
+
+                x: width / 2 - 20,
+
+                color: "rgb(190, 26, 37)",
+
+                scale: 2
+
+            },
+
+            branch: [
+
+                [535, 680, 570, 250, 500, 200, 30, 100, [
+
+                    [540, 500, 455, 417, 340, 400, 13, 100, [
+
+                        [450, 435, 434, 430, 394, 395, 2, 40]
+
+                    ]],
+
+                    [550, 445, 600, 356, 680, 345, 12, 100, [
+
+                        [578, 400, 648, 409, 661, 426, 3, 80]
+
+                    ]],
+
+                    [539, 281, 537, 248, 534, 217, 3, 40],
+
+                    [546, 397, 413, 247, 328, 244, 9, 80, [
+
+                        [427, 286, 383, 253, 371, 205, 2, 40],
+
+                        [498, 345, 435, 315, 395, 330, 4, 60]
+
+                    ]],
+
+                    [546, 357, 608, 252, 678, 221, 6, 100, [
+
+                        [590, 293, 646, 277, 648, 271, 2, 80]
+
+                    ]]
+
+                ]] 
+
+            ],
+
+            bloom: {
+
+                num: 700,
+
+                width: 1080,
+
+                height: 680,
+
+            },
+
+            footer: {
+
+                width: 1200,
+
+                height: 5,
+
+                speed: 10,
+
+            }
+
+        }
+
+
+
+        var tree = new Tree(canvas[0], width, height, opts);
+
+        var seed = tree.seed;
+
+        var foot = tree.footer;
+
+        var hold = 1;
+
+
+
+        canvas.click(function(e) {
+
+            var offset = canvas.offset(), x, y;
+
+            x = e.pageX - offset.left;
+
+            y = e.pageY - offset.top;
+
+            if (seed.hover(x, y)) {
+
+                hold = 0; 
+
+                canvas.unbind("click");
+
+                canvas.unbind("mousemove");
+
+                canvas.removeClass('hand');
+
+            }
+
+        }).mousemove(function(e){
+
+            var offset = canvas.offset(), x, y;
+
+            x = e.pageX - offset.left;
+
+            y = e.pageY - offset.top;
+
+            canvas.toggleClass('hand', seed.hover(x, y));
+
+        });
+
+
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+
+            seed.draw();
+
+            while (hold) {
+
+                $await(Jscex.Async.sleep(10));
+
+            }
+
+            while (seed.canScale()) {
+
+                seed.scale(0.95);
+
+                $await(Jscex.Async.sleep(10));
+
+
+            }
+
+            while (seed.canMove()) {
+
+                seed.move(0, 2);
+
+                foot.draw();
+
+                $await(Jscex.Async.sleep(10));
+
+            }
+
+        }));
+
+
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+
+            do {
+
+    	        tree.grow();
+
+                $await(Jscex.Async.sleep(10));
+
+            } while (tree.canGrow());
+
+        }));
+
+
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+
+            do {
+
+    	        tree.flower(2);
+
+                $await(Jscex.Async.sleep(10));
+
+            } while (tree.canFlower());
+
+        }));
+
+
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+
+            tree.snapshot("p1", 240, 0, 610, 680);
+
+            while (tree.move("p1", 500, 0)) {
+
+                foot.draw();
+
+                $await(Jscex.Async.sleep(10));
+
+            }
+
+            foot.draw();
+
+            tree.snapshot("p2", 500, 0, 610, 680);
+
+
+
+            // 会有闪烁不得意这样做, (＞﹏＜)
+
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+
+            canvas.css("background", "#ffe");
+
+            $await(Jscex.Async.sleep(300));
+
+            canvas.css("background", "none");
+
+        }));
+
+
+
+        var jumpAnimate = eval(Jscex.compile("async", function () {
+
+            var ctx = tree.ctx;
+
+            while (true) {
+
+                tree.ctx.clearRect(0, 0, width, height);
+
+                tree.jump();
+
+                foot.draw();
+
+                $await(Jscex.Async.sleep(25));
+
+            }
+
+        }));
+
+
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+
+		    var together = new Date();
+
+		    together.setFullYear(2018,9 ,25); 			//时间年月日
+
+		    together.setHours(20);						//小时	
+
+		    together.setMinutes(53);					//分钟
+
+		    together.setSeconds(0);					    //秒前一位
+
+		    together.setMilliseconds(2);				//秒第二位
+
+
+
+		    $("#code").show().typewriter();
+
+            $("#clock-box").fadeIn(500);
+
+            while (true) {
+
+                timeElapse(together);
+
+                $await(Jscex.Async.sleep(1000));
+
+            }
+
+            alert("123")
+
+        }));
+
+
+
+        var runAsync = eval(Jscex.compile("async", function () {
+
+            $await(seedAnimate());
+
+            $await(growAnimate());
+
+            $await(flowAnimate());
+
+            $await(moveAnimate());
+
+
+
+            textAnimate().start();
+
+
+
+            $await(jumpAnimate());
+
+        }));
+
+
+
+        runAsync().start();
+
+    })();
+
+    </script>
+
+
+
+    </body></html>
+
